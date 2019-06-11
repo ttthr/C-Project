@@ -33,6 +33,7 @@ int clamp(int Current, int Min, int Max)
 
 	return Current;
 }
+//d
 
 int map[10][10]{
 	{1,1,1,1,1,1,1,1,1,1},
