@@ -22,6 +22,7 @@ int CUtility::clamp(int Current, int Min, int Max)
 	{
 		return Max;
 	}
-
+	
 	return Current;
+
 }

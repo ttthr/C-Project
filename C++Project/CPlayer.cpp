@@ -42,7 +42,6 @@ void CPlayer::Move(int _KeyInput)
 		break;
 	}
 
-
 	x = CUtility::clamp(x, 1, 8);
 	y = CUtility::clamp(y, 1, 8);
 

@@ -10,6 +10,8 @@ CMap::CMap()
 
 CMap::~CMap()
 {
+	if (m_pPlayer)
+		delete m_pPlayer;
 }
 
 void CMap::Init(CPlayer * _pPlayer)

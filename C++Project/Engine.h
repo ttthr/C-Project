@@ -25,7 +25,7 @@ public:
 	void Init(CPlayer* _pPlayer , CMap* _pMap);
 	void Run();
 	void Draw();
-	void Tick(int _KeyInput);
+	void Tick(int _KeyInput); //Update의미( 언리얼에선 Tick이라고 부름)
 	int Input();
 
 	bool bIsRunning = true;
