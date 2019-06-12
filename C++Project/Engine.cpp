@@ -1,11 +1,30 @@
 #include "Engine.h"
+#include "CPlayer.h"
+#include "CMap.h"
+#include "CUtility.h"
 
 CEngine::CEngine()
 {
+	/*m_pPlayer = new CPlayer;
+	m_map = new CMap;
+	m_Utility = new CUtility;*/
 }
 
 CEngine::~CEngine()
 {
+	/*if (m_pPlayer)
+		delete m_pPlayer;
+	if (m_map)
+		delete m_map;
+	if (m_Utility)
+		delete m_Utility;*/
+}
+void CEngine::Init(CPlayer * _pPlayer, CMap * _pMap)
+{
+	m_map = _pMap;
+	m_map->Init(_pPlayer);
+
+
 }
 
 void CEngine::Run()
@@ -22,57 +41,81 @@ void CEngine::Run()
 
 void CEngine::Draw()
 {
-	//system("cls");
+	system("cls");
 
-	//for (int i = 0; i < 10; ++i)
-	//{
-	//	for (int j = 0; j < 10; ++j)
-	//	{
-	//		if (i == playerx && j == playery)
-	//			cout << "@";
-	//		else
-	//			cout << map[i][j];
+	m_map->Draw();
 
-	//	}
-	//	cout << endl;
-	//}
+	/*for (int i = 0; i < 10; ++i)
+	{
+		for (int j = 0; j < 10; ++j)
+		{
+			if (i == m_pPlayer->x && j == m_pPlayer->y)
+				cout << "@";
+			else
+				cout << m_map->map[i][j];
+
+		}
+		cout << endl;
+	}*/
 
 }
 
-void CEngine::Tick(int KeyInput)
+void CEngine::Tick(int _KeyInput)
 {
-	//switch (_KeyInput)
-	//{
-	//case RIGHT:
-	//{
-	//	PlayerX++;
-	//	break;
-	//}
-	//case LEFT:
-	//{
-	//	PlayerX--;
-	//	break;
-	//}
-	//case UP:
-	//{
-	//	PlayerY--;
-	//	break;
-	//}
-	//case DOWN:
-	//{
-	//	PlayerY++;
-	//	break;
-	//}
-	//case 5:
-	//	bIsRunning = false;
-	//	break;
 
-	//default:
-	//	break;
-	//}
+	switch (_KeyInput)
+	{
+	case 'Q':
+	{
+		bIsRunning = false;
+		break;
+	}
+	case 'q':
+	{
+		bIsRunning = false;
+		break;
+	}
+	}
+	m_map->Tick(_KeyInput);
 
-	//PlayerX = clamp(PlayerX, 1, 8);
-	//PlayerY = clamp(PlayerY, 1, 8);
+	/*switch (_KeyInput)
+	{
+	case RIGHT:
+	{
+		m_pPlayer->x++;
+		break;
+	}
+	case LEFT:
+	{
+		m_pPlayer->x--;
+		break;
+	}
+	case UP:
+	{
+		m_pPlayer->y--;
+		break;
+	}
+	case DOWN:
+	{
+		m_pPlayer->y++;
+		break;
+	}
+	case 'Q':
+	{
+		bIsRunning = false;
+		break;
+	}
+	case 'q':
+	{
+		bIsRunning = false;
+		break;
+	}
+	default:
+		break;
+	}
+
+	m_pPlayer->x = m_Utility->clamp(m_pPlayer->x, 1, 8);
+	m_pPlayer->y = m_Utility->clamp(m_pPlayer->y, 1, 8);*/
 
 }
 
