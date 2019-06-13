@@ -1,5 +1,5 @@
 #include "CMonster.h"
-
+#include "CUtility.h"
 
 
 CMonster::CMonster()
@@ -15,5 +15,17 @@ CMonster::~CMonster()
 
 void CMonster::Move()
 {
-	std::cout << "몬스터가 이동한다." << std::endl;
+	//std::cout << "몬스터가 이동한다." << std::endl;
+	m_x = CUtility::clamp(m_x, 1, 8);
+	m_y = CUtility::clamp(m_y, 1, 8);
+}
+
+void CMonster::Tick(int _KeyInput)
+{
+	Move();
+}
+
+void CMonster::Draw()
+{
+	//std::cout << "9";
 }

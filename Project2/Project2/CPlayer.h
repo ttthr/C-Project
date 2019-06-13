@@ -15,7 +15,7 @@ private:
 	int Luck;
 	int Attack;
 	int Hp;
-	char* name;
+	char name[20];
 	int speed;
 private:
 	const static int left = 75;

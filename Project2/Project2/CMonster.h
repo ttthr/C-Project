@@ -1,6 +1,8 @@
 #pragma once
 #include<iostream>
 
+class CUtility;
+
 class CMonster
 {
 public:
@@ -13,8 +15,10 @@ protected:
 	int Luck;
 	int Attack;
 	int Hp;
-	char* name;
+	char name[20];
 	int speed;
+	int m_x;
+	int m_y;
 public:
 	int GetStr() { return Str;}
 	int GetDex() { return Dex; }
@@ -24,7 +28,11 @@ public:
 	int GetHp() { return Hp; }
 	int GetSpeed() { return speed; }
 	char* GetName() { return name; }
+	int GetXPos() { return m_x; }
+	int GetYPos() { return m_y; }
 public:
 	virtual void Move();
+	void Tick(int _KeyInput);
+	virtual void Draw();
 };
 

@@ -8,5 +8,7 @@ public:
 	virtual ~CWildpig();
 public:
 	virtual void Move();
+	virtual void Draw();
+
 };
 

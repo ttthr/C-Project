@@ -8,6 +8,8 @@ public:
 	virtual ~CSlime();
 public:
 	virtual void Move();
+	virtual void Draw();
+
 
 };
 

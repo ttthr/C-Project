@@ -16,7 +16,9 @@ int main()
 	CEngine* pEngine = new CEngine;
 	CPlayer* pPlayer = new CPlayer;
 	CMap* pMap = new CMap;
-	pEngine->Init(pPlayer, pMap); //몬스터 추가해줘야함
+	CMonster* pMonster = new CWildpig;
+
+	pEngine->Init(pPlayer, pMonster,pMap); //몬스터 추가해줘야함
 	pEngine->Run();
 
 	delete pEngine;

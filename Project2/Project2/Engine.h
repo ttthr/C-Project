@@ -6,6 +6,7 @@ using namespace std;
 class CPlayer;
 class CMap;
 class CUtility;
+class CMonster;
 
 //#define LEFT  75
 //#define RIGHT 77
@@ -22,7 +23,7 @@ public:
 	CMap* m_map;
 	//CUtility* m_Utility;
 public:
-	void Init(CPlayer* _pPlayer , CMap* _pMap);
+	void Init(CPlayer* _pPlayer ,CMonster* _pMonster ,CMap* _pMap);
 	void Run();
 	void Draw();
 	void Tick(int _KeyInput); //Update의미( 언리얼에선 Tick이라고 부름)
