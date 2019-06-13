@@ -28,6 +28,6 @@ public:
 	void Init(CPlayer* _pPlayer);
 	void InitMonster(CMonster* _pMonster);
 	void Tick(int _KeyInput);
-	void Draw();
+	void Render();
 };
 

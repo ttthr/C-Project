@@ -19,7 +19,7 @@ void CSlime::Move()
 	std::cout << "슬라임이 이동한다." << std::endl;
 }
 
-void CSlime::Draw()
+void CSlime::Render()
 {
 	std::cout << "&";
 }

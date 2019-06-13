@@ -10,15 +10,17 @@ CEngine::CEngine()
 
 CEngine::~CEngine()
 {
-	if (m_map)
+	if (m_map != NULL)
+	{
 		delete m_map;
+		m_map = NULL;
+	}
 }
 void CEngine::Init(CPlayer * _pPlayer, CMonster* _pMonster,  CMap * _pMap)
 {
 	m_map = _pMap;
 	m_map->Init(_pPlayer);
 	m_map->InitMonster(_pMonster);
-
 }
 
 void CEngine::Run()
@@ -27,16 +29,16 @@ void CEngine::Run()
 	{
 		int keyInput = Input();
 		Tick(keyInput);
-		Draw();
+		Render();
 
 	}
 
 }
 
-void CEngine::Draw()
+void CEngine::Render()
 {
 	system("cls");
-	m_map->Draw();
+	m_map->Render();
 }
 
 void CEngine::Tick(int _KeyInput)
@@ -61,8 +63,8 @@ void CEngine::Tick(int _KeyInput)
 
 int CEngine::Input()
 {
-
 	int KeyInput = getch();
 
 	return KeyInput;
+
 }

@@ -8,7 +8,7 @@ public:
 	virtual ~CGoblin();
 public:
 	virtual void Move();
-	virtual void Draw();
+	virtual void Render();
 
 };
 

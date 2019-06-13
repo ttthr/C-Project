@@ -8,7 +8,7 @@ public:
 	virtual ~CSlime();
 public:
 	virtual void Move();
-	virtual void Draw();
+	virtual void Render();
 
 
 };

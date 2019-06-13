@@ -17,7 +17,7 @@ void CGoblin::Move()
 {
 	std::cout << "고블린이 이동한다." << std::endl;
 }
-void CGoblin::Draw()
+void CGoblin::Render()
 {
 	std::cout << "=";
 }

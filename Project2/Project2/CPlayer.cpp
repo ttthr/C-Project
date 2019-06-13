@@ -52,7 +52,7 @@ void CPlayer::Tick(int _KeyInput)
 	Move(_KeyInput);
 }
 
-void CPlayer::Draw()
+void CPlayer::Render()
 {
 	std::cout << "@";
 }

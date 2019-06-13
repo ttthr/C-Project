@@ -15,7 +15,7 @@ void CWildpig::Move()
 {
 	std::cout << "¸äµÅÁö°¡ ÀÌµ¿ÇÑ´Ù." << std::endl;
 }
-void CWildpig::Draw()
+void CWildpig::Render()
 {
 	std::cout << "#";
 }

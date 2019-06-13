@@ -37,6 +37,6 @@ public:
 public:
 	void Move(int _KeyInput);
 	void Tick(int _KeyInput);
-	void Draw();
+	void Render();
 };
 

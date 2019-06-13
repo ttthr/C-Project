@@ -33,6 +33,6 @@ public:
 public:
 	virtual void Move();
 	void Tick(int _KeyInput);
-	virtual void Draw();
+	virtual void Render();
 };
 
