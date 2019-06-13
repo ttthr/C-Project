@@ -1,19 +1,42 @@
 #include "CMap.h"
-
+#include "CPlayer.h"
+#include "CMonster.h"
 
 
 CMap::CMap()
 {
-	std::cout << "¸Ê »ý¼ºÀÚ." << std::endl;
-}
 
+}
 
 CMap::~CMap()
 {
-	std::cout << "¸Ê ¼Ò¸êÀÚ." << std::endl;
+	if (m_pPlayer)
+		delete m_pPlayer;
+}
+
+void CMap::Init(CPlayer * _pPlayer)
+{
+	m_pPlayer = _pPlayer;
+}
+
+void CMap::Tick(int _KeyInput)
+{
+	m_pPlayer->Tick(_KeyInput);
 }
 
 void CMap::Draw()
 {
-	std::cout << "MapÀÌ ³ª¿Ô´Ù." << std::endl;
+	for (int i = 0; i < 10; ++i)
+	{
+		for (int j = 0; j < 10; ++j)
+		{
+			if (i == m_pPlayer->x && j == m_pPlayer->y)
+				m_pPlayer->Draw();
+			else
+				std::cout << map[i][j];
+
+		}
+		std::cout << std::endl;
+	}
+
 }

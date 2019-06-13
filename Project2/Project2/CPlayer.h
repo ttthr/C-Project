@@ -1,6 +1,8 @@
 #pragma once
 #include<iostream>
 
+class CUtility;
+
 class CPlayer
 {
 public:
@@ -15,6 +17,14 @@ private:
 	int Hp;
 	char* name;
 	int speed;
+private:
+	const static int left = 75;
+	const static int right = 77;
+	const static int up = 72;
+	const static int down = 80;
+public:
+	int x = 1;
+	int y = 1;
 public:
 	int GetStr() { return Str; }
 	int GetDex() { return Dex; }
@@ -25,6 +35,8 @@ public:
 	int GetSpeed() { return speed; }
 	char* GetName() { return name; }
 public:
-	void Move();
+	void Move(int _KeyInput);
+	void Tick(int _KeyInput);
+	void Draw();
 };
 

@@ -7,9 +7,19 @@ using namespace std;
 #include "CWildpig.h"
 #include "CGoblin.h"
 #include "CMap.h"
+#include "Engine.h"
+#include "CUtility.h"
 
 int main()
 {
+
+	CEngine* pEngine = new CEngine;
+	CPlayer* pPlayer = new CPlayer;
+	CMap* pMap = new CMap;
+	pEngine->Init(pPlayer, pMap); //몬스터 추가해줘야함
+	pEngine->Run();
+
+	delete pEngine;
 
 	/*CMap* pMap = new CMap;
 	pMap->Draw();
