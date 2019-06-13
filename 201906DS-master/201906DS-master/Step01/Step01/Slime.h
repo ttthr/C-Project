@@ -6,7 +6,7 @@ class Slime : public Monster
 {
 public:
 	Slime();
-	~Slime();
+	virtual ~Slime();
 
-	void Move();
+	virtual void Move()override;
 };

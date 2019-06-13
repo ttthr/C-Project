@@ -5,8 +5,8 @@ class Wildboar : public Monster
 {
 public:
 	Wildboar();
-	~Wildboar();
+	virtual ~Wildboar();
 
-	void Move();
+	virtual void Move()override;
 };
 

@@ -3,12 +3,12 @@ class Character
 {
 public:
 	Character();
-	~Character();
+	virtual ~Character();
 
 	int Attack;
 	int HP;
 	int Speed;
 
-	void Move();
+	virtual void Move();
 };
 

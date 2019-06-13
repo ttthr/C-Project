@@ -8,6 +8,7 @@
 #include <stdlib.h>
 #include <time.h>
 
+
 Engine::Engine()
 {
 	printf("Engine »ý¼ºÀÚ\n");
@@ -26,20 +27,24 @@ void Engine::Init()
 {
 	srand((unsigned int)time(0));
 
-	player = new Player();
-	for (int i = 0; i < 10; ++i)
+	monsterCount = rand() % 5 + 1;
+
+	characters.push_back(new Player());
+
+
+	for (int i = 0; i < monsterCount; ++i)
 	{
 		int type = rand() % 3;
 		switch (type)
 		{
 			case 0:
-				monster[i] = new Slime();
+				characters.push_back(new Slime());
 				break;
 			case 1:
-				monster[i] = new Goblin();
+				characters.push_back(new Goblin());
 				break;
 			case 2:
-				monster[i] = new Wildboar();
+				characters.push_back(new Wildboar());
 				break;
 		}
 		
@@ -48,14 +53,13 @@ void Engine::Init()
 
 void Engine::Term()
 {
-	delete player;
-	player = nullptr;
-
-	for (int i = 0; i < 10; ++i)
+	
+	for (int i = 0; i < characters.size(); ++i)
 	{
-		delete monster[i];
-		monster[i] = nullptr;
+		delete characters[i];
+		characters[i] = nullptr;
 	}
+
 }
 
 void Engine::Run()
@@ -82,13 +86,17 @@ void Engine::Tick(int KeyCode)
 		bIsRunning = false;
 	}
 
-	player->Move();
-	for (int i = 0; i < 10; ++i)
+	vector<Character*>::iterator iter = characters.begin();
+	vector<Character*>::iterator iter_end = characters.end();
+	
+	for (iter; iter != iter_end; ++iter)
 	{
-		monster[i]->Move();
+		(*iter)->Move();
 	}
+	
 }
-
 void Engine::Render()
 {
+
+
 }

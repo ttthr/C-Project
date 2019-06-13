@@ -1,4 +1,9 @@
 #pragma once
+#include <iostream>
+#include <vector>
+#include "Monster.h"
+using namespace std;
+
 class Engine
 {
 public:
@@ -15,11 +20,7 @@ public:
 
 	bool bIsRunning;
 
-	class Player* player;
-	//class Goblin* goblin[100];
-	//class Wildboar* wildboar[100];
-	//class Slime* slime[100];
-
-	class Monster* monster[100];
+	vector<Character*> characters;
+	int monsterCount;
 };
 
