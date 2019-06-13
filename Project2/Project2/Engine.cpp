@@ -6,6 +6,7 @@
 
 CEngine::CEngine()
 {
+	cout << "Engine 생성자 불림" << endl;
 }
 
 CEngine::~CEngine()
@@ -15,6 +16,8 @@ CEngine::~CEngine()
 		delete m_map;
 		m_map = NULL;
 	}
+
+	cout << "Engine 소멸자 불림" << endl;
 }
 void CEngine::Init(CPlayer * _pPlayer, CMonster* _pMonster,  CMap * _pMap)
 {
@@ -31,8 +34,7 @@ void CEngine::Run()
 		Tick(keyInput);
 		Render();
 
-	}
-
+	} 
 }
 
 void CEngine::Render()

@@ -4,14 +4,14 @@
 
 CPlayer::CPlayer()
 {
-	//std::cout << "플레이어 생성자." << std::endl;
+	std::cout << "플레이어 생성자." << std::endl;
 
 }
 
 
 CPlayer::~CPlayer()
 {
-	//std::cout << "플레이어 소멸자." << std::endl;
+	std::cout << "플레이어 소멸자." << std::endl;
 }
 
 void CPlayer::Move(int _KeyInput)

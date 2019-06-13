@@ -5,21 +5,24 @@
 
 CMap::CMap()
 {
-
+	std::cout << "Map 생성자 불림" << std::endl;
 }
 
 CMap::~CMap()
 {
-	if (m_pPlayer != NULL)
-	{
-		delete m_pPlayer;
-		m_pPlayer = NULL;
-	}
 	if (m_pMonster != NULL)
 	{
 		delete m_pMonster;
 		m_pMonster = NULL;
 	}
+
+	if (m_pPlayer != NULL)
+	{
+		delete m_pPlayer;
+		m_pPlayer = NULL;
+	}
+
+	std::cout << "Map 소멸자 불림" << std::endl;
 }
 
 void CMap::Init(CPlayer * _pPlayer)
