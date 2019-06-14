@@ -1,4 +1,5 @@
 #pragma once
+#include "Define.h"
 #include "CCharacter.h"
 class CPlayer :
 	public CCharacter
@@ -6,7 +7,10 @@ class CPlayer :
 public:
 	CPlayer();
 	virtual ~CPlayer();
-public:
+protected:
 	virtual void Move() override;
+public:
+	virtual void Tick() override;
+	virtual void Render() override;
 };
 

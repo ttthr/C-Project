@@ -18,3 +18,9 @@ void CCharacter::Move()
 
 
 }
+
+void CCharacter::Tick()
+{
+
+
+}

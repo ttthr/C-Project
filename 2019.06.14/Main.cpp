@@ -1,18 +1,19 @@
-#include<iostream>
-using namespace std;
+#include "Define.h"
 #include "CEngine.h"
+#include "CMyEngine.h"
 
 
 int main()
 {
-	CEngine* pEngine = new CEngine;
+	CEngine* pMyEngine = new CMyEngine;
 
-	pEngine->Run();
+	pMyEngine->Run();
 
-	if (pEngine != nullptr)
+
+	if (pMyEngine != nullptr)
 	{
-		delete pEngine;
-		pEngine = nullptr;
+		delete pMyEngine;
+		pMyEngine = nullptr;
 	}
 	return 0;
 

@@ -1,4 +1,5 @@
 #pragma once
+#include "Define.h"
 #include "CCharacter.h"
 class CMonster :
 	public CCharacter
@@ -6,7 +7,10 @@ class CMonster :
 public:
 	CMonster();
 	virtual ~CMonster();
-public:
+protected:	
 	virtual void Move()override;
+public:
+	virtual void Tick() override;
+	virtual void Render() override;
 };
 
