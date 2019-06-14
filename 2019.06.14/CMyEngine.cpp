@@ -38,6 +38,8 @@ bool CMyEngine::Term()
 			m_Characters[i] = NULL;
 		}
 	}
+	m_Characters.clear();
+
 	if (m_map != NULL)
 	{
 		delete m_map;
