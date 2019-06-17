@@ -1,7 +1,6 @@
 #include "CEngine.h"
 
 CEngine::CEngine()	
-
 {
 	Init(); //초기화
 }
@@ -30,14 +29,39 @@ bool CEngine::Term()
 void CEngine::input()
 {
 	CurrentKeyInput = getch();
-
 }
 
 void CEngine::Tick()
 {
-	//cout << "Tick 둘어간다" << endl;
+	KeyInput(CurrentKeyInput); //플레이어 키처리 함수
+	m_map->SetCharacters(m_Characters); //캐릭터를 맵으로 넘기는 함수
+	Collision(); // 플레이어,몬스터 충돌,사망처리 함수
 
-	switch (CurrentKeyInput)
+}
+
+void CEngine::Render()
+{
+
+	system("cls");
+	m_map->Render(); //맵 렌더
+
+}
+
+bool CEngine::GameLoop()
+{
+	while (bIsRunning)
+	{
+		input();
+		Tick();
+		Render();
+	
+	}
+	return false;
+}
+
+void CEngine::KeyInput(int _CurrentKeyInput)
+{
+	switch (_CurrentKeyInput)
 	{
 	case right:
 	{
@@ -72,55 +96,28 @@ void CEngine::Tick()
 	}
 
 	CurrentKeyInput = 0;
-	
-	vector<CCharacter*>::iterator iter = m_Characters.begin();
-	vector<CCharacter*>::iterator iter_end = m_Characters.end();
-
-	for (iter; iter != iter_end; ++iter)
-	{
-		(*iter)->Tick();
-	}
-
-	m_Characters[0]->Position.x = m_map->clamp(m_Characters[0]->Position.x, 1, 8);
-	m_Characters[0]->Position.y = m_map->clamp(m_Characters[0]->Position.y, 1, 8);
-
-	
 }
 
-
-void CEngine::Render()
+void CEngine::Collision()
 {
-	//맵 렌더
-	system("cls");
-
-	for (int i = 0; i < 10; ++i)
+	dynamic_cast<CPlayer*>(m_Characters[0])->Tick();
+	dynamic_cast<CPlayer*>(m_Characters[0])->Position.x = m_map->clamp(dynamic_cast<CPlayer*>(m_Characters[0])->Position.x, 1, 8);
+	dynamic_cast<CPlayer*>(m_Characters[0])->Position.y = m_map->clamp(dynamic_cast<CPlayer*>(m_Characters[0])->Position.y, 1, 8);
+	if (dynamic_cast<CPlayer*>(m_Characters[0])->Position.x == 8 && dynamic_cast<CPlayer*>(m_Characters[0])->Position.y == 8)
 	{
-		for (int j = 0; j < 10; ++j)
-		{
-
-			if (i == m_Characters[0]->Position.x && j == m_Characters[0]->Position.y)
-				m_Characters[0]->Render();
-			else
-				cout << m_map->Data[i][j];
-
-		}
-		cout << endl;
+		bIsRunning = false;
+		cout << "탈출" << endl;
 	}
-}
-
-bool CEngine::GameLoop()
-{
-	while (bIsRunning)
+	if (dynamic_cast<CPlayer*>(m_Characters[0])->Position.x == dynamic_cast<CMonster*>(m_Characters[1])->Position.x &&
+		dynamic_cast<CPlayer*>(m_Characters[0])->Position.y == dynamic_cast<CMonster*>(m_Characters[1])->Position.y)
 	{
-		input();
-		Tick();
-		Render();
-		if (m_Characters[0]->Position.x == 8 && m_Characters[0]->Position.y == 8)
-		{
-			cout << "탈출" << endl;
-			break;
-		}
+		bIsRunning = false;
+		cout << "플레이어 사망" << endl;
 	}
-	return false;
+
+	dynamic_cast<CMonster*>(m_Characters[1])->Tick();
+	dynamic_cast<CMonster*>(m_Characters[1])->Position.x = m_map->clamp(dynamic_cast<CMonster*>(m_Characters[1])->Position.x, 1, 8);
+	dynamic_cast<CMonster*>(m_Characters[1])->Position.y = m_map->clamp(dynamic_cast<CMonster*>(m_Characters[1])->Position.y, 1, 8);
+
 }
 

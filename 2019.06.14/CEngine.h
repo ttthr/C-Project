@@ -3,6 +3,7 @@
 #include "CCharacter.h"
 #include "CMap.h"
 #include "CPlayer.h"
+#include "CMonster.h"
 
 class CEngine
 {
@@ -23,6 +24,9 @@ protected:
 	int CurrentKeyInput;
 	vector<CCharacter*> m_Characters;
 	CMap* m_map;
+public:
+	void KeyInput(int _CurrentKeyInput);
+	void Collision();
 
 };
 
