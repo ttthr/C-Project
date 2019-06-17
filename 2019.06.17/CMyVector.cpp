@@ -3,12 +3,10 @@
 
 
 CMyVector::CMyVector()
-	:size(100),
+	:StorageSize(100),
 	position(0)
 {
-
-	Data = new int[size];
-
+	Data = new int[StorageSize];
 }
 CMyVector::~CMyVector()
 {
@@ -16,18 +14,20 @@ CMyVector::~CMyVector()
 }
 void CMyVector::PushBack(int _pushback)
 {
-	if (position == size)
+	if (position == StorageSize)
 	{
 		//저장소 새로 생성, 추가(2배씩늘린다.)
-		int* temp = new int[size * 2];
-		for (int i = 0; i < size; ++i)
-		{
-			//값 복사
-			temp[i] = Data[i];
-		}
+		int* temp = new int[StorageSize * 2];
+		//for (int i = 0; i < size; ++i)
+		//{
+		//	//값 복사
+		//    temp[i] = Data[i];
+		//}
+		memcpy(temp, Data, position * sizeof(int)); //한번에 메모리 카피, 맨 끝 바이트 단위
+
 		delete[] Data;
 		Data = temp;
-		size = size * 2;
+		StorageSize = StorageSize * 2;
 		Data[position++] = _pushback;
 	}
 	else
@@ -43,12 +43,6 @@ int CMyVector::operator[](size_t _Getposition)
 {
 	return Data[_Getposition];
 }
-
-ostream & CMyVector::operator<<(ostream & _cout)
-{
-	return _cout;
-}
-
 
 
    /*size++;

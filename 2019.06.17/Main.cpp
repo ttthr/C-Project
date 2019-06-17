@@ -1,5 +1,6 @@
 #include<iostream>
 #include<vector>
+
 using namespace std;
 
 #include "CMyVector.h"
@@ -12,13 +13,12 @@ int main()
 	
 	CMyVector pVec;
 
-	for(int i =0 ; i < 100; ++i)
+	for(int i =0 ; i < 10000; ++i)
 		pVec.PushBack(i);
 
-	for (int i = 0; i < pVec.GetDataSize(); ++i)
+	for (int i = 0; i < pVec.GetPosition(); ++i)
 		cout << pVec[i] << endl;
-	for (int i = 0; i < pVec.GetDataSize(); ++i)
-		cout << pVec[i] << endl;
+	
 
 	return 0;
 }
