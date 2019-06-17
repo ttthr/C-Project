@@ -39,6 +39,12 @@
     <ClCompile Include="Vector.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="CActor.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="CUtility.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CCharacter.h">
@@ -63,6 +69,12 @@
       <Filter>소스 파일</Filter>
     </ClInclude>
     <ClInclude Include="Vector.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="CActor.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="CUtility.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>

@@ -1,9 +1,10 @@
 #pragma once
 #include "Define.h"
 #include "CCharacter.h"
-#include "CMap.h"
 #include "CPlayer.h"
 #include "CMonster.h"
+
+class CMap;
 
 class CEngine
 {
@@ -14,6 +15,8 @@ public:
 	virtual bool Init();
 	virtual bool Run();
 	virtual bool Term();
+public:
+	static int CurrentKeyInput;
 protected:
 	bool bIsRunning;
 	virtual void input();
@@ -21,7 +24,6 @@ protected:
 	virtual void Render();
 	virtual bool GameLoop();
 protected:
-	int CurrentKeyInput;
 	vector<CCharacter*> m_Characters;
 	CMap* m_map;
 public:

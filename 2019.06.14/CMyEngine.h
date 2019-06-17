@@ -3,6 +3,7 @@
 #include "CEngine.h"
 class CPlayer;
 class CMonster;
+class CMap;
 
 class CMyEngine :
 	public CEngine
@@ -18,5 +19,6 @@ public:
 protected:
 	virtual void input()override;
 	virtual void Tick()override;
+	virtual void Render()override;
 };
 

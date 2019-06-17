@@ -1,4 +1,7 @@
 #include "CEngine.h"
+#include "CMap.h"
+
+int CEngine::CurrentKeyInput = 0;
 
 CEngine::CEngine()	
 {
@@ -28,22 +31,22 @@ bool CEngine::Term()
 
 void CEngine::input()
 {
-	CurrentKeyInput = getch();
+	CEngine::CurrentKeyInput = getch();
 }
 
 void CEngine::Tick()
 {
-	KeyInput(CurrentKeyInput); //플레이어 키처리 함수
-	m_map->SetCharacters(m_Characters); //캐릭터를 맵으로 넘기는 함수
-	Collision(); // 플레이어,몬스터 충돌,사망처리 함수
+	//KeyInput(CurrentKeyInput); //플레이어 키처리 함수
+	//m_map->SetCharacters(m_Characters); //캐릭터를 맵으로 넘기는 함수
+	//Collision(); // 플레이어,몬스터 충돌,사망처리 함수
 
 }
 
 void CEngine::Render()
 {
 
-	system("cls");
-	m_map->Render(); //맵 렌더
+	//system("cls");
+	//m_map->Render(); //맵 렌더
 
 }
 
@@ -101,8 +104,8 @@ void CEngine::KeyInput(int _CurrentKeyInput)
 void CEngine::Collision()
 {
 	dynamic_cast<CPlayer*>(m_Characters[0])->Tick();
-	dynamic_cast<CPlayer*>(m_Characters[0])->Position.x = m_map->clamp(dynamic_cast<CPlayer*>(m_Characters[0])->Position.x, 1, 8);
-	dynamic_cast<CPlayer*>(m_Characters[0])->Position.y = m_map->clamp(dynamic_cast<CPlayer*>(m_Characters[0])->Position.y, 1, 8);
+	dynamic_cast<CPlayer*>(m_Characters[0])->Position.x = CUtility::clamp(dynamic_cast<CPlayer*>(m_Characters[0])->Position.x, 1, 8);
+	dynamic_cast<CPlayer*>(m_Characters[0])->Position.y = CUtility::clamp(dynamic_cast<CPlayer*>(m_Characters[0])->Position.y, 1, 8);
 	if (dynamic_cast<CPlayer*>(m_Characters[0])->Position.x == 8 && dynamic_cast<CPlayer*>(m_Characters[0])->Position.y == 8)
 	{
 		bIsRunning = false;
@@ -116,8 +119,8 @@ void CEngine::Collision()
 	}
 
 	dynamic_cast<CMonster*>(m_Characters[1])->Tick();
-	dynamic_cast<CMonster*>(m_Characters[1])->Position.x = m_map->clamp(dynamic_cast<CMonster*>(m_Characters[1])->Position.x, 1, 8);
-	dynamic_cast<CMonster*>(m_Characters[1])->Position.y = m_map->clamp(dynamic_cast<CMonster*>(m_Characters[1])->Position.y, 1, 8);
+	dynamic_cast<CMonster*>(m_Characters[1])->Position.x = CUtility::clamp(dynamic_cast<CMonster*>(m_Characters[1])->Position.x, 1, 8);
+	dynamic_cast<CMonster*>(m_Characters[1])->Position.y = CUtility::clamp(dynamic_cast<CMonster*>(m_Characters[1])->Position.y, 1, 8);
 
 }
 
