@@ -22,7 +22,7 @@ int main()
 		cout << pVec[i] << ",";
 
 	//pVec.Erase(pVec[5]);
-	pVec.my_Erase(1);
+	pVec.Erase(1);
 
 	cout << endl;
 

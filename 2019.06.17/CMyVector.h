@@ -21,8 +21,8 @@ public:
 private:
 	T* Data;
 	size_t StorageSize;
+	size_t size;
 	size_t position;
-	size_t erase;
 public:
 	void PushBack(T _pushback)
 	{
@@ -83,21 +83,21 @@ public:
 	}
 public:
 	//수업
-	bool my_Erase(size_t index)
-	{
-		if (index > position || index < 0)
-		{
-			cout << "못지웁니다." << endl;
-			return false;
-		}
-	/*	for (int i = index; i < position - 1; ++i)
-		{
-			Data[i] = Data[i + 1];
-		}*/
-		memcpy(Data[index], Data[index + 1], (position - index) * sizeof(T));
-		//position--;
-		return true;
-	}
+	//bool my_Erase(size_t index)
+	//{
+	//	if (index > position || index < 0)
+	//	{
+	//		cout << "못지웁니다." << endl;
+	//		return false;
+	//	}
+	///*	for (int i = index; i < position - 1; ++i)
+	//	{
+	//		Data[i] = Data[i + 1];
+	//	}*/
+	//	memcpy(Data[index], Data[index + 1], (position - index) * sizeof(T));
+	//	//position--;
+	//	return true;
+	//}
 	/*bool InsertAfter(size_t index, T Value)
 	{
 		return false;
