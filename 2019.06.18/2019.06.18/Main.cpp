@@ -20,16 +20,39 @@ using namespace std;
 //	n = n / 2; //앞에꺼를 뒤에껄로 나눈 몫
 //}
 
+#define BITSETARR 10
 
 int main()
 {
+	// 문제
+	// 숫자 X보다 크거나 같은 수 중 가장 적은 2의 승수(2^n)를 NPOT(Next Power of Two)라고 할 때,
+	// 주어진 숫자 N개의 NPOT을 구하여 모두 XOR한 값을 구하시오
 
-	vector<int> vInt;
+	// 조건
+	// 1 < X < 2^63
+	// 1 <= N < 2^18
+
+	// 예시
+	// 입력 
+	// 3 : 숫자의갯수
+	// 3
+	// 5
+	// 7
+
+    // 출력 
+	// 4
+	// 4 = 4 ^ 8 ^ 8 ( 4 xor 8 xor 8 )
+
+
+	vector<int> vInt; //첫번째 배열
 	vInt.reserve(10);
-	vector<int> vInt2;
-	vInt2.reserve(10); //두번째 배열
+	vector<int> vInt2;//두번째 배열
+	vInt2.reserve(10); 
+	vector<int> vIntarr;//두번째 배열
+	vIntarr.reserve(10);
+
 	int n = 0;
-	int binary = 0;
+	
 
 	cout << "지도 크기를 입력하세요: ";
 	cin >> n;
@@ -39,6 +62,7 @@ int main()
 	for (int i = 0; i < n; ++i)
 	{
 		vInt.push_back(i);
+		vIntarr.push_back(i);
 		cin >> vInt[i];
 	}
 
@@ -97,8 +121,6 @@ int main()
 	buf10 = vInt2[4];
 	cout << buf10 << " ";
 
-
-
 	cout << endl;
 
 	cout << "******************************" << endl;
@@ -111,7 +133,6 @@ int main()
 			cout << "#";
 		else
 			cout << " ";
-
 	}
 	cout << endl;
 
@@ -143,8 +164,10 @@ int main()
 	}
 
 	cout << endl;
+
 	for (int j = 4; j >= 0; --j)
 	{
+
 		if (buf9[j] || buf10[j] == 1)
 			cout << "#";
 		else
@@ -152,12 +175,6 @@ int main()
 
 	}
 
-
-
-
-
-
-	
 
 	//cout << endl;
 	//cout << "첫번째 배열 이진수 변환" << endl;
