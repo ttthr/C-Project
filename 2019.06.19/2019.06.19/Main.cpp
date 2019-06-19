@@ -1,51 +1,31 @@
 #include<iostream>
-#include<fstream>
 #include<string>
-#include<vector>
+#include<bitset>
+#include<algorithm>
 using namespace std;
-// 문제
-// 숫자 X보다 크거나 같은 수 중 가장 적은 2의 승수(2^n)를 NPOT(Next Power of Two)라고 할 때,
-// 주어진 숫자 N개의 NPOT을 구하여 모두 XOR한 값을 구하시오
 
-// 조건
-// 1 < X < 2^63
-// 1 <= N < 2^18
-
-// 예시
-// 입력 
-// 3 : 숫자의갯수
-// 3
-// 5
-// 7
-
-// 출력 
-// 4
-// 4 = 4 ^ 8 ^ 8 ( 4 xor 8 xor 8 )
-// xor : 둘중에 하나가 1이면 1 / 둘다 같으면 0 
-
-// 9,223,372,036,854,775,807  ( (2^63) - 1 의 값 )
-// 입출력 리다이렉션과 파이프
-
-typedef unsigned long long uint64;
-//범위가 정해지면
-//type 지정하는것을 물어보는 것
 
 int main()
 {	
-	//입력받을 숫자
-	int N = 0;
-	uint64 X = 0;
-	vector<uint64> vStorage;
+	int n = 5;
+	int arr[5] = { 9,20,28,18,11 };
+	int arr2[5] = { 30,1,21,17,28 };
+	int Resultarr[5];
 
-	cout << "숫자입력: ";
-	cin >> N;
+	string Result[5];
 
-	for (int i = 0; i < N ; ++i)
+	for (int i = 0; i < n; ++i)
 	{
-		cin >> X;
-		vStorage.push_back(X);
+		Resultarr[i] = arr[i] | arr2[i];
 	}
 
+	for (int i = 0; i < n; ++i)
+	{
+		Result[i] = bitset<5>(Resultarr[i]).to_string();
+		replace(Result[i].begin(), Result[i].end() , '1','#' );
+		replace(Result[i].begin(), Result[i].end(), '0', ' ');
+		cout << Result[i] << endl;
+	}
 
 	return 0;
 }
