@@ -10,11 +10,12 @@ using namespace std;
 int main()
 {
 	CMyList List;
+	List.Push_Back(1);
+	List.Push_Back(2);
+	List.insert(2, 3);
 	
-	for (int i = 1; i < 10; ++i)
-	{
-		List.Insert(i);
-	}
+
+	
 	for (NODE* current = List.Head; current != List.Tail; current = current->Next)
 	{
 		cout << current->Value << endl;

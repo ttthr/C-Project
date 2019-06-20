@@ -14,10 +14,11 @@ public:
 public:
 	NODE* Tail;
 	NODE* Head;
+	Node* FindNode = nullptr;
 public:
-	void Insert(int NewValue);
-	void NewInsert(NODE* _node, int NewValue);
-
+	void Push_Back(int NewValue);
+	void insert(int NewValue, int SearchValue);
+	Node* Find(int SearchValue);
 
 };
 

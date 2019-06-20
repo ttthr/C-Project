@@ -7,6 +7,7 @@ CMyList::CMyList()
 	Head = new NODE();
 	Tail = new NODE();
 	Head->Next = Tail;
+
 }
 
 
@@ -16,26 +17,59 @@ CMyList::~CMyList()
 
 }
 
-void CMyList::Insert(int NewValue)
+void CMyList::Push_Back(int NewValue)
 {
-	NODE* NewNode = new NODE;
+	Node* NewNode = new NODE();
 	NewNode->Value = NewValue;
 
-	Node* Find;
-
-	for (Find = Head; Find->Next != Tail; Find = Find->Next)
+	// 헤드가 테일이면
+	if (Head == Tail)
 	{
+		Head->Next = NewNode;
+		NewNode->Next = Tail;
+	}
+	else //헤드가 테일이 아닐 때
+	{
+		for (FindNode = Head; FindNode->Next != Tail; FindNode = FindNode->Next)
+		{
+			//순회
+	
+		}
+		////찾은 노드 다음을 NewNode;
+		FindNode->Next = NewNode;
+		////NewNode 는 테일
+		NewNode->Next = Tail;
+
 
 	}
 
-	Find->Next = NewNode;
-	NewNode->Next = Tail;
-
 }
 
-void CMyList::NewInsert(NODE * _node, int NewValue)
+void CMyList::insert(int NewValue, int SearchValue)
 {
-	NODE* NewNode = new NODE;
+	Node* NewNode = new Node();
 	NewNode->Value = NewValue;
+	NewNode = Find(SearchValue);
+	
+	if (NewNode != nullptr)
+	{
+		Node* Next = NewNode->Next;
+		NewNode->Next = NewNode;
 
+		NewNode->Next = Next;
+	}
 }
+
+Node * CMyList::Find(int SearchValue)
+{
+	Node* insertNode = new Node();
+	insertNode->Value = SearchValue;
+
+	for (Node* Find = insertNode->Next; Find != Tail; Find = Find->Next)
+	{
+		return Find;
+	}
+	return nullptr;
+}
+
+
