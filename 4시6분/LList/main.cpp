@@ -11,19 +11,39 @@ int main()
 //	a.find()
 
 	LList l;
+	
 	for (int i = 0; i < 10; ++i)
-	{
 		l.PushBack(i);
-	}
 
 	l.InsertAfter(l.Find(3), 20);
 	l.InsertAfter(l.Find(3), 30);
 	l.InsertAfter(l.Find(3), 40);
 
+	cout << "그냥" << endl;
+
 	for (LList::Iterator CurrentPosition = l.Begin(); CurrentPosition != l.End(); CurrentPosition++)
 	{
-		cout << (*CurrentPosition)->Value << endl;
+		cout << " " << (*CurrentPosition)->Value;
 	}
+	cout << endl;
+
+	cout << "리버스" << endl;
+
+	for (LList::rIterator CurrentPosition = l.rBegin(); CurrentPosition != l.rEnd(); ++CurrentPosition)
+	{
+		cout << " " << (*CurrentPosition)->Value;
+	}
+
+	cout << endl;
+	cout << "삭제" << endl;
+
+	l.Erase(l.Begin(), l.End());
+
+	for (LList::Iterator CurrentPosition = l.Begin(); CurrentPosition != l.End(); CurrentPosition++)
+	{
+		cout << " " << (*CurrentPosition)->Value;
+	}
+
 
 	//vector<int> testVec;
 	//list<int> testList;

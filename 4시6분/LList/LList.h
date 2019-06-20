@@ -57,6 +57,33 @@ public:
 			return (Current == rhs.Current);
 		}
 	};
+	class rIterator
+	{
+	private:
+		Node* pos;
+	public:
+		rIterator(Node* init = nullptr) : pos(init) {}
+		rIterator& operator++()
+		{
+			pos = pos->Prev;
+			return *this;
+		}
+
+		Node* operator* ()
+		{
+			return pos;
+		}
+
+		bool operator!=(const rIterator& rhs)
+		{
+			return (pos != rhs.pos);
+		}
+
+		bool operator==(const rIterator& rhs)
+		{
+			return (pos == rhs.pos);
+		}
+	};
 
 	void PushBack(int NewValue); //Tail 앞에 추가
 	void PushFront(int NewValue); //Head 앞에 추가
@@ -66,6 +93,10 @@ public:
 
 	Iterator Begin() { return Iterator(Head->Next);  }
 	Iterator End() { return Iterator(Tail); }
+	rIterator rBegin() { return rIterator(Tail->Prev); }
+	rIterator rEnd() { return rIterator(Head); }
+	
+	void Erase(LList::Iterator begin, LList::Iterator end);
 
 protected:
 	Node* Tail;

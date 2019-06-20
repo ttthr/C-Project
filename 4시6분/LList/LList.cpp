@@ -21,7 +21,7 @@ void LList::PushBack(int NewValue)
 
 	if (NewNode)
 	{
-		NewNode->Prev = Tail->Prev;
+		NewNode->Prev = Tail->Prev; //Head
 		Tail->Prev = NewNode;
 		NewNode->Next = Tail;
 		NewNode->Prev->Next = NewNode;
@@ -46,7 +46,6 @@ void LList::InsertAfter(LList::Iterator Where, int NewValue)
 	if (Where != nullptr)
 	{
 		Node* NewNode = MakeNode(NewValue);
-
 		//노드 연결
 		NewNode->Next = (*Where)->Next;
 		NewNode->Prev = (*Where);
@@ -66,6 +65,19 @@ LList::Iterator LList::Find(int SearchValue)
 	}
 
 	return nullptr;
+}
+
+void LList::Erase(LList::Iterator begin, LList::Iterator end)
+{
+	Node* temp;
+	if (Head != nullptr)
+	{
+		for (Iterator Current = begin; Current != end; ++Current)
+		{
+		
+
+		}
+	}
 }
 
 Node * LList::MakeNode(int NewValue)
