@@ -96,7 +96,15 @@ public:
 	rIterator rBegin() { return rIterator(Tail->Prev); }
 	rIterator rEnd() { return rIterator(Head); }
 	
-	void Erase(LList::Iterator begin, LList::Iterator end);
+	//void Erase(LList::Iterator begin, LList::Iterator end);
+	Iterator Erase(LList::Iterator Where)
+	{
+		(*Where)->Prev->Next = (*Where)->Next;
+		(*Where)->Next->Prev = (*Where)->Prev;
+		Iterator Return = Iterator((*Where)->Prev);
+		delete (*Where);
+		return Return;
+	}
 
 protected:
 	Node* Tail;

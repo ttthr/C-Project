@@ -37,11 +37,11 @@ int main()
 	cout << endl;
 	cout << "»èÁ¦" << endl;
 
-	l.Erase(l.Begin(), l.End());
+
 
 	for (LList::Iterator CurrentPosition = l.Begin(); CurrentPosition != l.End(); CurrentPosition++)
 	{
-		cout << " " << (*CurrentPosition)->Value;
+		CurrentPosition = l.Erase(CurrentPosition);
 	}
 
 

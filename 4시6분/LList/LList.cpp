@@ -67,18 +67,19 @@ LList::Iterator LList::Find(int SearchValue)
 	return nullptr;
 }
 
-void LList::Erase(LList::Iterator begin, LList::Iterator end)
-{
-	Node* temp;
-	if (Head != nullptr)
-	{
-		for (Iterator Current = begin; Current != end; ++Current)
-		{
-		
+//void LList::Erase(LList::Iterator begin, LList::Iterator end)
+//{
+//	Node* temp;
+//	if (Head != nullptr)
+//	{
+//		for (Iterator Current = begin; Current != end; ++Current)
+//		{
+//		
+//
+//		}
+//	}
+//}
 
-		}
-	}
-}
 
 Node * LList::MakeNode(int NewValue)
 {
