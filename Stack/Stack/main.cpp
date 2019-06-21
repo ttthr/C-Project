@@ -7,24 +7,20 @@ using namespace std;
 
 unsigned int strlen_s(char* Data, int Size);
 
-int a()
-{
-	return 1;
-	//return a();
-}
-
 int main()
 {
-//	a();
-	char Buffer[1024] = { 0 };
 
+	char Buffer[1024] = { 0 };
+	
+	cout << "문자열 입력: ";
 	cin.getline(Buffer, 1024);
 
 	unsigned int Size = strlen_s(Buffer, 1024);
 
-	LStack<char> ReverseStack;
-	//AStack<char> ReverseStack;
+	//LStack<char> ReverseStack;
+	AStack<char> ReverseStack;
 
+	
 	for (unsigned int i = 0; i < Size; ++i)
 	{
 		ReverseStack.Push(Buffer[i]);
@@ -32,7 +28,8 @@ int main()
 
 	for (unsigned int i = 0; i < Size; ++i)
 	{
-		cout << ReverseStack.Pop();
+		cout << ReverseStack.Top();
+		ReverseStack.Pop();
 	}
 
 
