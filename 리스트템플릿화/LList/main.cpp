@@ -16,10 +16,10 @@ int main()
 		l.PushBack(i *1.1f);
 	}
 
-	for (LList<float>::Iterator CurrentPosition = l.Begin(); CurrentPosition != l.End(); CurrentPosition++)
-	{
-		CurrentPosition = l.Erase(CurrentPosition);
-	}
+	//for (LList<float>::Iterator CurrentPosition = l.Begin(); CurrentPosition != l.End(); CurrentPosition++)
+	//{
+	//	CurrentPosition = l.Erase(CurrentPosition);
+	//}
 
 	for (LList<float>::ReverseIterator CurrentPosition = l.RBegin(); CurrentPosition != l.REnd(); CurrentPosition++)
 	{
