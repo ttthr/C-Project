@@ -14,21 +14,30 @@ public:
 		front = 0;
 		rear = 0;
 		size = 0;
-		count = 0;
 	};
-	virtual ~Queue() { delete[] Data; Data = nullptr; };
+	virtual ~Queue() 
+	{
+		if (Data != nullptr)
+		{
+			delete[] Data;
+			Data = nullptr;
+		}
+	};
 private:
 	T* Data;
 	int front;
 	int rear;
 	int size;
 	int maxsize;
-	int count;
 public:
 	void Push(T _Data)
 	{
+		if (size >= maxsize)
+			return;
 		Data[rear] = _Data;
- 
+		rear++;
+		size++;
+
 	};
 	void Back(T _Data)
 	{
@@ -38,9 +47,9 @@ public:
 	{
 
 	};
-	T& Front()
+	T Front()
 	{
-		return nullptr;
+		return 0;
 	};
 	int GetSize() { return size; }
 
