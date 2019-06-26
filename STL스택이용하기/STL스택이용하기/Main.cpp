@@ -168,56 +168,7 @@ bool FindMaze(int x , int y)
 
 		}
 
-
-	
-	//while (true)
-	//{
-	//	if (maze[y][x] == WAY)
-	//	{
-	//		stackY.top() = y++;
-	//		cout << "(" << x << "," << y << ")" << " ";
-	//		cout << endl;
-	//	}
-	//	if (maze[y][x] == WALL)
-	//	{
-	//		y = stackY.top();
-	//		break;
-	//	}
-
-	//}
-
-	/*while (true)
-	{
-		if (maze[y][x] == WAY)
-		{
-			y = y + 1;
-			cout << "(" << x << "," << y << ")";
-			cout << endl;
-
-		}
-		else if (maze[y][x] == WALL)
-		{
-			y = y - 1;
-			break;
-		}
-
-	}*/
-	
-
-	//cout << "(" << stackX.top() << "," << stackY.top() << ")";
-	//cout << endl;
-
-	/*while (true)
-	{
-		if (maze[stackY.top()][stackX.top()] == WALL)
-		{
-			stackY.top()++;
-		}
-		cout << "(" << stackX.top() << "," << stackY.top() << ")";
-		cout << endl;
-	}
-*/
-	return 0;
+	return true;
 }
 
 
