@@ -11,7 +11,7 @@ using namespace std;
 class vector2
 {
 public:
-	vector2(): x(100), y(0) { }
+	vector2(): x(0), y(0) { }
 
 	~vector2(){}
 public:
@@ -57,23 +57,48 @@ int maze[MAX][MAX] =
 	{1, 1, 0, 0, 0, 1, 1, 0, 1, 1},
 	{1, 1, 1, 1, 0, 0, 0, 0, 0, 0},
 };
+int visitmaze[MAX][MAX]
+{
+	{0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+	{1, 1, 1, 1, 1, 1, 0, 1, 1, 1},
+	{1, 1, 1, 1, 1, 1, 0, 1, 1, 1},
+	{1, 1, 1, 1, 1, 1, 0, 1, 1, 1},
+	{1, 1, 1, 1, 0, 0, 0, 0, 1, 1},
+	{1, 1, 1, 1, 0, 1, 1, 0, 1, 1},
+	{1, 1, 1, 1, 0, 1, 1, 0, 1, 1},
+	{1, 1, 1, 1, 0, 1, 1, 0, 1, 1},
+	{1, 1, 0, 0, 0, 1, 1, 0, 1, 1},
+	{1, 1, 1, 1, 0, 0, 0, 0, 0, 0},
+};
 
+int Check(vector2 p) {
+
+	return !(p.x < MAX - 1 || p.x< 0 || p.y < MAX - 1 || p.y < 0) ? true : false;
+}
 bool CanMove(vector2& Current)
 {
+	vector2 Next;
 
+	//4방향 움직이기
 	for (int dir = (int)Direction::right; dir <= (int)Direction::up; ++dir)
-	{	
-		Current = Current + 1;
-
-		if (Current.x < MAX - 1 && Current.y < MAX - 1)
+	{
+		Next = Current; // 다음에 갈곳
+		Next = Next + Dir[dir]; //방향 이동. Right->Down->Left->Up
+		if (Next.x < 0 || Next.y < 0 || Next.x >= MAX || Next.y >= MAX) //이동 할곳이 정확한지
 		{
-			cout << "탈출" << endl;
-			break;
+			continue;//현재 방향 다음 방향 이동
+		}
+
+		if (maze[Next.y][Next.x] == WAY) //미리 가보는곳이 갈수 있는지?
+		{
+			Current = Next;
+			return true;
 		}
 	}
 
 	return false; //다음 갈곳이 없음
 }
+
 
 void RenderMap()
 {
@@ -87,6 +112,49 @@ void RenderMap()
 	}
 }
 
+void FindMaze(vector2& pos)
+{
+	queue<vector2> my_queue;
+
+	vector2 TempPos;
+
+	TempPos = pos;
+	my_queue.push(TempPos);
+	visitmaze[TempPos.y][TempPos.x] = 100;
+
+	while (!my_queue.empty())
+	{
+		TempPos = my_queue.front();
+		my_queue.pop();
+
+		int CurrentLevel = visitmaze[TempPos.y][TempPos.x];
+	
+		for (int dir = (int)Direction::right; dir <= (int)Direction::up; ++dir)
+		{
+			TempPos = TempPos + Dir[dir];
+			//TempPos.y = TempPos.y + Dir[dir].y;
+			//TempPos.x = TempPos.x + Dir[dir].x;
+			
+			if (TempPos.x < 0 || TempPos.y < 0 || TempPos.x >= MAX || TempPos.y >= MAX)
+			{
+				break;
+			}
+			if (TempPos.x == MAX - 1 && TempPos.y == MAX - 1)
+			{
+				cout << "탈출" << endl;
+				break;
+			}
+			
+			else if (visitmaze[TempPos.y][TempPos.x] == WAY)
+			{			
+				visitmaze[TempPos.y][TempPos.x] = CurrentLevel + 1;
+				my_queue.push(TempPos);
+	
+			}
+			
+		}	
+	}
+}
 
 
 int main()
@@ -105,25 +173,21 @@ int main()
 	Dir[(int)Direction::up].x = 0;
 	Dir[(int)Direction::up].y = -1;
 
-	vector2 pos;
-	queue<vector2> my_queue;
-	my_queue.push(pos);
-	cout << "(" << my_queue.front().x << "," << my_queue.front().y << ")" << endl;
-
-	//큐가 비어있지않으면 
-	if(!my_queue.empty())
-	{
-		while (true)
-		{
-			if (CanMove(pos))
-			{
-				my_queue.push(pos);
-			}
-
-		}
-	}
 	RenderMap();
+	
+	vector2 pos;
+	FindMaze(pos);
 
+	cout << endl;
+
+	for (int y = 0; y < MAX - 1; ++y)
+	{
+		for (int x = 0; x < MAX - 1; ++x)
+		{
+			cout << visitmaze[y][x] << " ";
+		}
+		cout << endl;
+	}
 
 	return 0;
 
@@ -151,5 +215,10 @@ int main()
 			}
 	   }
 	}
-}*/
-
+//}*/
+//
+//
+// Check(CurrentPos)&& !visitmaze[CurrentPos.y][CurrentPos.x] && maze[CurrentPos.y][CurrentPos.x]
+//if (checkRangeOver(cur) && !visited[cur.y][cur.x]
+//	&& edge[cur.y][cur.x]) {
+//
