@@ -94,7 +94,6 @@ int main()
 
 		int myLevel = Maze[CurrentPos.y][CurrentPos.x];
 
-
 		for (int dir = (int)Direction::right; dir <= (int)Direction::up; ++dir)
 		{
 			
@@ -109,32 +108,26 @@ int main()
 
 				Maze[TempPos.y][TempPos.x] = myLevel + 1;
 				my_queue.push(TempPos);
-
 				my_Stack.push(CurrentPos);
 				if (!my_Stack.empty())
 				{
-					ResultPos = my_Stack.top();
-					my_Stack.pop();
-					my_Stack.push(ResultPos);
 					cout << "(" << my_Stack.top().x << "," << my_Stack.top().y << ")";
+			
 				}
-
-				
+						
 				//cout << "(" << my_queue.front().x << "," << my_queue.front().y << ")";
 			}
 
-
 			if (TempPos.x == MAX - 1 && TempPos.y == MAX - 1)
 			{
-				cout << "Å»Ãâ" << endl;
 				MaxLevel = Maze[TempPos.y][TempPos.x];
+				cout << "Å»Ãâ" << endl;
 				break;
 			}
 		
 		}
+
 	}
-
-
 	cout << endl;
 
 	for (int y = 0; y < MAX; ++y)
@@ -146,6 +139,7 @@ int main()
 
 		cout << endl;
 	}
+
 
 
 
