@@ -18,7 +18,7 @@ Shader::Shader(LPTSTR fileName, LPCSTR entry, LPCSTR profile)
 Shader::~Shader()
 {
 
-
+	
 
 }
 void Shader::Release()
