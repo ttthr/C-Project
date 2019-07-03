@@ -31,12 +31,13 @@
 cbuffer PerObjectBuffer : register(b0)
 {
 	matrix world;
-}
+};
+
 cbuffer PerSceneBuffer : register(b1)
 {
 	matrix view;
 	matrix projection;
-}
+};
 
 struct VS_INPUT
 {
@@ -52,9 +53,9 @@ struct VS_OUTPUT
 VS_OUTPUT main(VS_INPUT input)
 {
 	VS_OUTPUT output;
-	output.position = mul(input.position * world);
-	output.position = mul(output.position * view);
-	output.position = mul(output.position * projection);
+	output.position = mul(input.position, world);
+	output.position = mul(output.position, view);
+	output.position = mul(output.position, projection);
 	//output.color = input.color;
 
 	return output;
