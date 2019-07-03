@@ -10,6 +10,11 @@ Engine::Engine(HINSTANCE hInstance)
 
 Engine::~Engine()
 {
+	//Memory::SafeDelete(pMesh);
+	//pVertexShader->Release();
+	//Memory::SafeDelete(pVertexShader);
+	//pPixelShader->Release();
+	//Memory::SafeDelete(pPixelShader);
 }
 
 int Engine::Run()
@@ -21,6 +26,10 @@ int Engine::Run()
 bool Engine::Init()
 {
 	if (DXApp::Init() == false)
+	{
+		return false;
+	}
+	if (InitializeScene() == false)
 	{
 		return false;
 	}
@@ -38,6 +47,51 @@ void Engine::Render()
 	//·»´õ Å¸°ÙÀ» ¼³Á¤ÇÑ »ö»óÀ¸·Î Ä¥ÇÏ±â
 	m_pd3dDeviceContext->ClearRenderTargetView(m_pRenderTargetView, color);
 
+	//¹öÅØ½º, ¼ÎÀÌ´õ ¹ÙÀÎµù ÇÒ °÷
+	pVertexShader->BindShader(m_pd3dDeviceContext);
+	pPixelShader->BindShader(m_pd3dDeviceContext);
+	
+	//¸Ş½¬ ·»´õ
+	pMesh->RenderBuffers(m_pd3dDeviceContext);
+
 	//¹öÆÛ ±³È¯
 	m_pSwapChain->Present(1, 0);
+}
+
+bool Engine::InitializeScene()
+{
+	//¹öÅØ½º ¼ÎÀÌ´õ »ı¼º
+	pVertexShader = new VertexShader(TEXT("Shader//VS.fx"));
+	//¹öÅØ½º ¼ÎÀÌ´õ ÄÄÆÄÀÏ
+	if (pVertexShader->CompileShader(m_pd3dDevice) == false)
+	{
+		return false;
+	}
+	//Á¤Á¡ ¼ÎÀÌ´õ °´Ã¼ »ı¼º
+	if (pVertexShader->CreateShader(m_pd3dDevice) == false)
+	{
+		return false;
+	}
+	//ÇÈ¼¿ ¼ÎÀÌ´õ »ı¼º
+	pPixelShader = new PixelShader(TEXT("Shader//PS.fx"));
+	//ÇÈ¼¿ ¼ÎÀÌ´õ ÄÄÆÄÀÏ
+	if (pPixelShader->CompileShader(m_pd3dDevice) == false)
+	{
+		return false;
+	}
+	//ÇÈ¼¿ ¼ÎÀÌ´õ °´Ã¼ »ı¼º
+	if (pPixelShader->CreateShader(m_pd3dDevice) == false)
+	{
+		return false;
+	}
+
+	//¸Ş½¬ »ı¼º
+	pMesh = new Mesh();
+	//ÃÊ±âÈ­
+	if (pMesh->InitailizeBuffers(m_pd3dDevice, pVertexShader->GetShaderBuffer()) == false)
+	{
+		return false;
+	}
+
+	return true;
 }

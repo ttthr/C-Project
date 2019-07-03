@@ -19,6 +19,9 @@ private:
 	VertexShader* pVertexShader;
 	PixelShader*  pPixelShader;
 	Mesh*         pMesh;
+private:
+	//장면(Scene) 초기화
+	bool InitializeScene();
 
 };
 

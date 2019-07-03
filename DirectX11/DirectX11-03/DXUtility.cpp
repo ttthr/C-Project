@@ -1,6 +1,6 @@
 #include "DXUtility.h"
 
-bool ISError(HRESULT hr, LPCTSTR msg)
+bool IsError(HRESULT hr, LPCTSTR msg)
 {
 	if (hr < 0)
 	{

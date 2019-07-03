@@ -8,16 +8,11 @@ DXApp::DXApp(HINSTANCE hInstance)
 }
 DXApp::~DXApp()
 {
-	if (window != NULL)
-	{
-		delete window;
-	}
-
-	m_pd3dDevice->Release();
-	m_pd3dDeviceContext->Release();
-	m_pSwapChain->Release();
-	m_pRenderTargetView->Release();
-
+	if (window != NULL){delete window;}
+	if (m_pd3dDevice){m_pd3dDevice->Release();}
+	if (m_pd3dDeviceContext){m_pd3dDeviceContext->Release();}
+	if (m_pSwapChain) { m_pSwapChain->Release(); }
+	if (m_pRenderTargetView){m_pRenderTargetView->Release();}		
 }
 bool DXApp::Init()
 {
@@ -72,7 +67,7 @@ bool DXApp::InitializeDirect3D()
 	//오류확인
 	if (FAILED(hResult))
 	{
-		MessageBox(NULL, TEXT("백퍼서 생성 실패"), TEXT("오류"), MB_OK);
+		MessageBox(NULL, TEXT("백버퍼 생성 실패"), TEXT("오류"), MB_OK);
 		return false;
 	}
 
@@ -81,11 +76,18 @@ bool DXApp::InitializeDirect3D()
 	hResult = m_pd3dDevice->CreateRenderTargetView(pBackBufferTexture2D, NULL, &m_pRenderTargetView);
 
 	//오류확인
+
 	if (FAILED(hResult))
 	{
-		MessageBox(NULL, TEXT("렌더 타겟 뷰 생성 실패"), TEXT("오류"), MB_OK);
+		MessageBox(NULL, TEXT("렌더 타겟 생성 실패"), TEXT("오류"), MB_OK);
 		return false;
 	}
+
+	//if (FAILED(hResult))
+	//{
+	//	MessageBox(NULL, TEXT("렌더 타겟 뷰 생성 실패"), TEXT("오류"), MB_OK);
+	//	return false;
+	//}
 
 	//렌더 타겟에 연결 
 	m_pd3dDeviceContext->OMSetRenderTargets(1, &m_pRenderTargetView, NULL);
@@ -113,4 +115,5 @@ void DXApp::SetViewPort()
 	viewPort.Width = static_cast<float>(window->GetscreenWidth());
 	viewPort.Height = static_cast<float>(window->GetscreenHeight());
 
+	m_pd3dDeviceContext->RSSetViewports(1, &viewPort);
 }

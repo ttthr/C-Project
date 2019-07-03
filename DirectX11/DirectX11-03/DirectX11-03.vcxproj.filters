@@ -13,6 +13,9 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="HLSL">
+      <UniqueIdentifier>{c279346e-dcc1-4aa9-928c-d5f3e8ca82d8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AppWindow.cpp">
@@ -22,9 +25,6 @@
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="Engine.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="App.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="Mesh.cpp">
@@ -42,6 +42,9 @@
     <ClCompile Include="DXUtility.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AppWindow.h">
@@ -51,9 +54,6 @@
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="Engine.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="App.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="DXUtility.h">
@@ -71,5 +71,13 @@
     <ClInclude Include="PixelShader.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="Shader\PS.fx">
+      <Filter>HLSL</Filter>
+    </FxCompile>
+    <FxCompile Include="Shader\VS.fx">
+      <Filter>HLSL</Filter>
+    </FxCompile>
   </ItemGroup>
 </Project>
