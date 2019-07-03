@@ -5,6 +5,13 @@ Mesh::Mesh()
 
 }
 
+Mesh::Mesh(float x, float y, float z)
+{
+	//메쉬 위치
+	//SetPosition에서 Position에 넣어주고 있음
+	SetPosition(x, y, z);
+
+}
 Mesh::~Mesh()
 {
 	if (VertexBuffer) { VertexBuffer->Release(); }
@@ -63,7 +70,6 @@ bool Mesh::InitailizeBuffers(ID3D11Device * pDevice, ID3DBlob * VertexShaderBuff
 	nIndeices = ARRAYSIZE(indicesArr);
 
 	//인덱스 버퍼 서술자 
-
 	D3D11_BUFFER_DESC IndexBufferDesc; //서술자
 	ZeroMemory(&IndexBufferDesc, sizeof(D3D11_BUFFER_DESC)); //초기화
 	IndexBufferDesc.ByteWidth = sizeof(DWORD) *  nIndeices; //바이트 수 계산
@@ -104,6 +110,32 @@ bool Mesh::InitailizeBuffers(ID3D11Device * pDevice, ID3DBlob * VertexShaderBuff
 		return false;
 	}
 
+	//상수 버퍼 생성 ( 넘기기 )
+	PerObjectBuffer MatrixConstantBuffer;
+	MatrixConstantBuffer.World = XMMatrixTranspose(GetWorldMatrix()); //월드 행렬 셋팅
+	
+	// 상수 버퍼
+	D3D11_BUFFER_DESC MatrixConstantBufferDesc; //서술자
+	ZeroMemory(&IndexBufferDesc, sizeof(D3D11_BUFFER_DESC)); //초기화
+	MatrixConstantBufferDesc.ByteWidth = sizeof(PerObjectBuffer);; //바이트 수 계산
+	MatrixConstantBufferDesc.CPUAccessFlags = 0; // CPU가 접근못하게 0으로 설정해주면됨
+	MatrixConstantBufferDesc.BindFlags = D3D11_BIND_CONSTANT_BUFFER; // 버텍스 버퍼 사용
+	MatrixConstantBufferDesc.MiscFlags = 0; //버퍼를 다른용도로 만들때 넣는 곳
+	MatrixConstantBufferDesc.Usage = D3D11_USAGE_DEFAULT; //CPU가 접근못함 
+
+	// 상수 버퍼
+	D3D11_SUBRESOURCE_DATA MatrixConstantBufferSubResouceVB;
+	ZeroMemory(&MatrixConstantBufferSubResouceVB, sizeof(D3D11_SUBRESOURCE_DATA));
+	MatrixConstantBufferSubResouceVB.pSysMem = &MatrixConstantBuffer;
+
+	hResult = pDevice->CreateBuffer(&MatrixConstantBufferDesc, &MatrixConstantBufferSubResouceVB, &ConstantBuffer);
+
+
+	if (FAILED(hResult))
+	{
+		MessageBox(NULL, TEXT("상수 버퍼 생성 실패"), TEXT("오류"), MB_OK);
+		return false;
+	}
 	return true;
 }
 
@@ -123,4 +155,23 @@ void Mesh::RenderBuffers(ID3D11DeviceContext * pDeviceContext)
 	//pDeviceContext->Draw(nVertices, 0);
 	//그리기 인덱스버퍼
 	pDeviceContext->DrawIndexed(nIndeices, 0, 0);
+}
+
+void Mesh::Update(ID3D11DeviceContext * pDeviceContext)
+{
+	//  스케일 , 회전 정보 업데이트 있어야함 나중엔
+	//
+	//
+	//월드 행렬 바인딩
+	pDeviceContext->VSSetConstantBuffers(0, 1, &ConstantBuffer);
+
+}
+XMMATRIX Mesh::GetWorldMatrix() const
+{
+	return XMMatrixTranslation(Position.x, Position.y, Position.z);
+}
+
+void Mesh::SetPosition(float x, float y, float z)
+{
+	Position = XMFLOAT3(x, y, z);
 }

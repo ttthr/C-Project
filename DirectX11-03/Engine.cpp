@@ -25,11 +25,18 @@ int Engine::Run()
 
 bool Engine::Init()
 {
+	//DX초기화
 	if (DXApp::Init() == false)
 	{
 		return false;
 	}
+	//장면 초기화
 	if (InitializeScene() == false)
+	{
+		return false;
+	}
+	// 행렬 초기화
+	if (InitializeTransformation() == false)
 	{
 		return false;
 	}
@@ -38,6 +45,10 @@ bool Engine::Init()
 
 void Engine::Update()
 {
+	//월드 행렬 업데이트
+	pMesh->Update(m_pd3dDeviceContext);
+	// 뷰,투영행렬 상수버퍼로 넘기기
+	m_pd3dDeviceContext->VSSetConstantBuffers(1, 1, &ViewProjConstantBuffer);
 }
 
 void Engine::Render()
@@ -86,12 +97,62 @@ bool Engine::InitializeScene()
 	}
 
 	//메쉬 생성
-	pMesh = new Mesh();
+	pMesh = new Mesh(0.0f,0.0f, 0.0f);
 	//초기화
 	if (pMesh->InitailizeBuffers(m_pd3dDevice, pVertexShader->GetShaderBuffer()) == false)
 	{
 		return false;
 	}
 
+	return true;
+}
+
+bool Engine::InitializeTransformation()
+{
+	//카메라 정보 셋팅
+	CameraPosition = XMVectorSet(0.0f, 0.0f, -2.0f, 0.0f);
+	CameraView = XMVectorSet(0.0f, 0.0f, 0.0f, 0.0f);
+	CameraUp = XMVectorSet(0.0f, 1.0f, 0.0f, 0.0f);
+
+	//뷰 행렬 만들기
+	XMMATRIX ViewMatrix;
+	ViewMatrix = XMMatrixLookAtLH(CameraPosition, CameraView, CameraUp);
+
+	//투영 행렬 
+	//시야각 / 종횡비 설정
+	float fovY = XMConvertToRadians(70.0f);
+	float AspectRatio = static_cast<float>(window->GetscreenWidth()) / static_cast<float>(window->GetscreenHeight());
+
+	XMMATRIX ProjMatrix;
+	ProjMatrix = XMMatrixPerspectiveFovLH(fovY, AspectRatio, 1.0f, 1000.0f);
+
+	//버퍼에 담을 구조체 변수 설정
+	PerSceneBuffer MatrixData;
+	MatrixData.ViewMatrix = XMMatrixTranspose(ViewMatrix);
+	MatrixData.ProjMatrix = XMMatrixTranspose(ProjMatrix);
+
+	// 버퍼 생성
+	D3D11_BUFFER_DESC MatrixBufferDesc; //서술자
+	ZeroMemory(&MatrixBufferDesc, sizeof(D3D11_BUFFER_DESC)); //초기화
+	MatrixBufferDesc.ByteWidth = sizeof(PerSceneBuffer); //바이트 수 계산
+	MatrixBufferDesc.CPUAccessFlags = 0; // CPU가 접근못하게 0으로 설정해주면됨
+	MatrixBufferDesc.BindFlags = D3D11_BIND_CONSTANT_BUFFER; // 버텍스 버퍼 사용
+	MatrixBufferDesc.MiscFlags = 0; //버퍼를 다른용도로 만들때 넣는 곳
+	MatrixBufferDesc.Usage = D3D11_USAGE_DEFAULT; //CPU가 접근못함 
+
+	//정점 배열 정보를 넣어줄 구조체
+	D3D11_SUBRESOURCE_DATA MatrixSubResouceVB;
+	ZeroMemory(&MatrixSubResouceVB, sizeof(D3D11_SUBRESOURCE_DATA));
+	MatrixSubResouceVB.pSysMem = &MatrixData;
+
+	//정점 버퍼 생성
+	HRESULT hResult;
+	hResult = m_pd3dDevice->CreateBuffer(&MatrixBufferDesc, &MatrixSubResouceVB, &ViewProjConstantBuffer);
+
+	if (FAILED(hResult))
+	{
+		MessageBox(NULL, TEXT("씬 상수버퍼 생성 실패"), TEXT("오류"), MB_OK);
+		return false;
+	}
 	return true;
 }
