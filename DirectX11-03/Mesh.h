@@ -1,6 +1,6 @@
 #pragma once
 #include "DXUtility.h"
-
+#include "Vertex.h"
 
 using namespace DirectX;
 
@@ -11,15 +11,17 @@ public:
 	Mesh(float x, float y , float z);
 	virtual ~Mesh();
 private:
-	struct Vertex
-	{
-		XMFLOAT3 xmPosition;
-		XMFLOAT4 xmColor;
-		Vertex(float x, float y, float z) :
-			xmPosition(x, y, z){}
-		Vertex(XMFLOAT3 pos) : xmPosition(pos){}
-		Vertex(XMFLOAT3 pos , XMFLOAT4 color) : xmPosition(pos), xmColor(color) {}
-	};
+	//struct Vertex
+	//{
+	//	XMFLOAT3 xmPosition;
+	//	XMFLOAT4 xmColor;
+	//	XMFLOAT2 xmUV;
+	//	Vertex(float x, float y, float z) :
+	//		xmPosition(x, y, z){}
+	//	Vertex(XMFLOAT3 pos) : xmPosition(pos){}
+	//	Vertex(XMFLOAT3 pos , XMFLOAT4 color) : xmPosition(pos), xmColor(color) {}
+	//	Vertex(XMFLOAT3 pos , XMFLOAT4 color, XMFLOAT2 uv) : xmPosition(pos), xmColor(color), xmUV(uv){}
+	//};
 	//오브젝트마다 사용할 버퍼
 	struct PerObjectBuffer 
 	{

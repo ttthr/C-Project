@@ -25,7 +25,7 @@ public:
 	void SetFileNmae(LPCTSTR fileName);
 	LPCTSTR GetFileName()const { return fileName; }
 	LPCSTR GetProFile()const { return profile; }
-	ID3DBlob* GetShaderBuffer() const { return ShaderBuffer; }
+   ID3DBlob* GetShaderBuffer() const { return ShaderBuffer; }
 
 };
 

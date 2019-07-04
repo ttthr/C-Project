@@ -10,11 +10,24 @@ Engine::Engine(HINSTANCE hInstance)
 
 Engine::~Engine()
 {
-	//Memory::SafeDelete(pMesh);
-	//pVertexShader->Release();
-	//Memory::SafeDelete(pVertexShader);
-	//pPixelShader->Release();
-	//Memory::SafeDelete(pPixelShader);
+	if (pMesh)
+	{
+		delete pMesh;
+		pMesh = NULL;
+	}
+	pVertexShader->Release();
+	if (pVertexShader)
+	{
+		delete pVertexShader;
+		pVertexShader = NULL;
+	}
+	pPixelShader->Release();
+	if (pPixelShader)
+	{
+		delete pPixelShader;
+		pPixelShader = NULL;
+	}
+
 }
 
 int Engine::Run()
@@ -61,6 +74,10 @@ void Engine::Render()
 	//버텍스, 셰이더 바인딩 할 곳
 	pVertexShader->BindShader(m_pd3dDeviceContext);
 	pPixelShader->BindShader(m_pd3dDeviceContext);
+
+	//텍스처,샘플러 스테이트 바인딩
+	pPixelShader->BindTexture(m_pd3dDeviceContext);
+	pPixelShader->BindSamplerState(m_pd3dDeviceContext);
 	
 	//메쉬 렌더
 	pMesh->RenderBuffers(m_pd3dDeviceContext);
@@ -94,17 +111,31 @@ bool Engine::InitializeScene()
 	if (pPixelShader->CreateShader(m_pd3dDevice) == false)
 	{
 		return false;
+	}	
+	//텍스쳐 로드
+
+	if (pPixelShader->RoadTexture(m_pd3dDevice, TEXT("Resource/Texture/DirectX.png")) == false)
+	{
+		return false;
+	}
+	//샘플러 스테이트 설정
+	if (pPixelShader->CreateSamplerState(m_pd3dDevice) == false)
+	{
+		return false;
 	}
 
+	
 	//메쉬 생성
-	pMesh = new Mesh(0.0f,0.0f, 0.0f);
+	pMesh = new Mesh(0.0f, 0.0f, 0.0f);
 	//초기화
 	if (pMesh->InitailizeBuffers(m_pd3dDevice, pVertexShader->GetShaderBuffer()) == false)
 	{
 		return false;
 	}
 
+
 	return true;
+
 }
 
 bool Engine::InitializeTransformation()
@@ -120,18 +151,18 @@ bool Engine::InitializeTransformation()
 
 	//투영 행렬 
 	//시야각 / 종횡비 설정
-	float fovY = XMConvertToRadians(70.0f);
+	float fovY = XMConvertToRadians(30.0f);
 	float AspectRatio = static_cast<float>(window->GetscreenWidth()) / static_cast<float>(window->GetscreenHeight());
 
 	XMMATRIX ProjMatrix;
 	ProjMatrix = XMMatrixPerspectiveFovLH(fovY, AspectRatio, 1.0f, 1000.0f);
 
-	//버퍼에 담을 구조체 변수 설정
+	//상수 버퍼에 담을 구조체 변수 설정
 	PerSceneBuffer MatrixData;
 	MatrixData.ViewMatrix = XMMatrixTranspose(ViewMatrix);
 	MatrixData.ProjMatrix = XMMatrixTranspose(ProjMatrix);
 
-	// 버퍼 생성
+	// View, Proj 상수버퍼 생성
 	D3D11_BUFFER_DESC MatrixBufferDesc; //서술자
 	ZeroMemory(&MatrixBufferDesc, sizeof(D3D11_BUFFER_DESC)); //초기화
 	MatrixBufferDesc.ByteWidth = sizeof(PerSceneBuffer); //바이트 수 계산
@@ -140,12 +171,12 @@ bool Engine::InitializeTransformation()
 	MatrixBufferDesc.MiscFlags = 0; //버퍼를 다른용도로 만들때 넣는 곳
 	MatrixBufferDesc.Usage = D3D11_USAGE_DEFAULT; //CPU가 접근못함 
 
-	//정점 배열 정보를 넣어줄 구조체
+	//상수 버퍼 정보를 넣어줄 구조체
 	D3D11_SUBRESOURCE_DATA MatrixSubResouceVB;
 	ZeroMemory(&MatrixSubResouceVB, sizeof(D3D11_SUBRESOURCE_DATA));
 	MatrixSubResouceVB.pSysMem = &MatrixData;
 
-	//정점 버퍼 생성
+	//버퍼 생성
 	HRESULT hResult;
 	hResult = m_pd3dDevice->CreateBuffer(&MatrixBufferDesc, &MatrixSubResouceVB, &ViewProjConstantBuffer);
 

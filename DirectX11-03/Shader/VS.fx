@@ -42,12 +42,15 @@ cbuffer PerSceneBuffer : register(b1)
 struct VS_INPUT
 {
 	float4 position : POSITION;
-	float4 color : COLOR;
+	//float4 color : COLOR;
+	float2 uv : TEXCORD0;
 };
+
 struct VS_OUTPUT
 {
 	float4 position : SV_POSITION;
-	float4 color : COLOR;
+	//float4 color : COLOR;
+	float2 uv : TEXCORD0;
 
 };
 VS_OUTPUT main(VS_INPUT input)
@@ -56,6 +59,8 @@ VS_OUTPUT main(VS_INPUT input)
 	output.position = mul(input.position, world);
 	output.position = mul(output.position, view);
 	output.position = mul(output.position, projection);
+	
+	output.uv = input.uv;
 	//output.color = input.color;
 
 	return output;

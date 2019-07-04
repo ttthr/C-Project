@@ -28,10 +28,14 @@ bool Mesh::InitailizeBuffers(ID3D11Device * pDevice, ID3DBlob * VertexShaderBuff
 		Vertex(XMFLOAT3(0.5f, -0.5f, 0.5f),XMFLOAT4(0.0f,1.0f,0.0f,1.0f)),
 		Vertex(XMFLOAT3(-0.5f, -0.5f, 0.5f),XMFLOAT4(0.0f,0.0f,1.0f,1.0f)),*/
 		//투영 좌표( 가운데가 0,0 )
-		Vertex(XMFLOAT3( -0.5f, 0.5f, 0.5f),XMFLOAT4(1.0f,0.0f,0.0f,1.0f)),
+		/*Vertex(XMFLOAT3( -0.5f, 0.5f, 0.5f),XMFLOAT4(1.0f,0.0f,0.0f,1.0f)),
 		Vertex(XMFLOAT3( 0.5f,  0.5f, 0.5f),XMFLOAT4(0.0f,1.0f,0.0f,1.0f)),
 		Vertex(XMFLOAT3( 0.5f, -0.5f, 0.5f),XMFLOAT4(0.0f,0.0f,1.0f,1.0f)),
-		Vertex(XMFLOAT3(-0.5f, -0.5f, 0.5f),XMFLOAT4(0.0f,0.0f,1.0f,1.0f))
+		Vertex(XMFLOAT3(-0.5f, -0.5f, 0.5f),XMFLOAT4(0.0f,0.0f,0.0f,1.0f))*/
+		Vertex(XMFLOAT3(-0.5f, 0.5f, 0.5f), XMFLOAT2(0.0f,0.0f)),
+		Vertex(XMFLOAT3(0.5f,  0.5f, 0.5f), XMFLOAT2(1.0f,0.0f)),
+		Vertex(XMFLOAT3(0.5f, -0.5f, 0.5f), XMFLOAT2(1.0f,1.0f)),
+		Vertex(XMFLOAT3(-0.5f, -0.5f, 0.5f),XMFLOAT2(0.0f,1.0f))
 
 	};
 	//배열 크기 저장하기
@@ -97,8 +101,9 @@ bool Mesh::InitailizeBuffers(ID3D11Device * pDevice, ID3DBlob * VertexShaderBuff
 	//입력 레이아웃 셋팅
 	D3D11_INPUT_ELEMENT_DESC Layout[] =
 	{
-		{"POSITION", 0 ,DXGI_FORMAT_R32G32B32_FLOAT,0,0,D3D11_INPUT_PER_VERTEX_DATA,0},
-		{"COLOR", 0 ,DXGI_FORMAT_R32G32B32A32_FLOAT,0,12,D3D11_INPUT_PER_VERTEX_DATA,0},
+		{"POSITION", 0 ,DXGI_FORMAT_R32G32B32_FLOAT,0,D3D11_APPEND_ALIGNED_ELEMENT,D3D11_INPUT_PER_VERTEX_DATA,0},
+		{"COLOR", 0 ,DXGI_FORMAT_R32G32B32A32_FLOAT,0,D3D11_APPEND_ALIGNED_ELEMENT,D3D11_INPUT_PER_VERTEX_DATA,0},
+	    {"TEXCORD", 0 , DXGI_FORMAT_R32G32_FLOAT, 0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA,0}
 
 	};
 

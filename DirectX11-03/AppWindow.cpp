@@ -23,8 +23,8 @@ AppWindow::AppWindow(HINSTANCE hInstance)
 {
 	hwnd = NULL;
 	this->hInstance = hInstance;
-	screenWidth = 800;
-	screenHeight = 600;
+	screenWidth = 1600;
+	screenHeight = 900;
 	applicationName = TEXT("Egine00 - Window SetUp");
 	windowStyle = WS_OVERLAPPEDWINDOW;
 	app = this;

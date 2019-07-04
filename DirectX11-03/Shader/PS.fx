@@ -6,16 +6,31 @@
 //}
 
 //정점 셰이더의 출력이 픽셀 셰이더의 입력
+//struct PS_INPUT
+//{
+//	float4 position : SV_POSITION;
+//	float4 color : COLOR;
+//	
+//};
+//
+//float4 main(PS_INPUT input) : SV_TARGET
+//{
+//	return input.color;
+//}
+Texture2D DiffuseMap;
+SamplerState DiffuseSampler;
+
 
 struct PS_INPUT
 {
 	float4 position : SV_POSITION;
-	float4 color : COLOR;
+	//float4 color : COLOR;
+	float2 uv : TEXCORD0;
 };
 
 float4 main(PS_INPUT input) : SV_TARGET
 {
-	return input.color;
+	float4 textureColor = DiffuseMap.Sample(DiffuseSampler, input.uv);
+	
+	return textureColor;
 }
-
-
