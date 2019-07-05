@@ -30,6 +30,12 @@
     <FxCompile Include="Shader\VS.fx">
       <Filter>HLSL</Filter>
     </FxCompile>
+    <FxCompile Include="Shader\DiffuseVS.fx">
+      <Filter>HLSL</Filter>
+    </FxCompile>
+    <FxCompile Include="Shader\DiffusePS.fx">
+      <Filter>HLSL</Filter>
+    </FxCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Libary\DirectXTex.h">

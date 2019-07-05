@@ -10,11 +10,11 @@ Engine::Engine(HINSTANCE hInstance)
 
 Engine::~Engine()
 {
-	if (pMesh)
-	{
-		delete pMesh;
-		pMesh = NULL;
-	}
+	//if (pMesh)
+	//{
+		//delete pMesh;
+		//pMesh = NULL;
+	//}
 	pVertexShader->Release();
 	if (pVertexShader)
 	{
@@ -114,7 +114,7 @@ bool Engine::InitializeScene()
 	}	
 	//텍스쳐 로드
 
-	if (pPixelShader->RoadTexture(m_pd3dDevice, TEXT("Resource/Texture/DirectX.png")) == false)
+	if (pPixelShader->RoadTexture(m_pd3dDevice, TEXT("Resource/Textures/T_Chr_FPS_D.png")) == false)
 	{
 		return false;
 	}
@@ -126,7 +126,11 @@ bool Engine::InitializeScene()
 
 	
 	//메쉬 생성
-	pMesh = new Mesh(0.0f, 0.0f, 0.0f);
+	//pMesh = new Mesh(0.0f, 0.0f, 0.0f);
+	pMesh = new Mesh("Resource/Models/HeroTPP.FBX");
+	pMesh->SetPosition(0.0f, -90.0f, 0.0f);
+	pMesh->SetRotation(-90.0f, 180.0f, 0.0f);
+
 	//초기화
 	if (pMesh->InitailizeBuffers(m_pd3dDevice, pVertexShader->GetShaderBuffer()) == false)
 	{
@@ -141,7 +145,7 @@ bool Engine::InitializeScene()
 bool Engine::InitializeTransformation()
 {
 	//카메라 정보 셋팅
-	CameraPosition = XMVectorSet(0.0f, 0.0f, -2.0f, 0.0f);
+	CameraPosition = XMVectorSet(0.0f, 0.0f, -200.0f, 0.0f);
 	CameraView = XMVectorSet(0.0f, 0.0f, 0.0f, 0.0f);
 	CameraUp = XMVectorSet(0.0f, 1.0f, 0.0f, 0.0f);
 
@@ -151,11 +155,11 @@ bool Engine::InitializeTransformation()
 
 	//투영 행렬 
 	//시야각 / 종횡비 설정
-	float fovY = XMConvertToRadians(30.0f);
+	float fovY = XMConvertToRadians(70.0f);
 	float AspectRatio = static_cast<float>(window->GetscreenWidth()) / static_cast<float>(window->GetscreenHeight());
 
 	XMMATRIX ProjMatrix;
-	ProjMatrix = XMMatrixPerspectiveFovLH(fovY, AspectRatio, 1.0f, 1000.0f);
+	ProjMatrix = XMMatrixPerspectiveFovLH(fovY, AspectRatio, 1.0f, 10000.0f);
 
 	//상수 버퍼에 담을 구조체 변수 설정
 	PerSceneBuffer MatrixData;

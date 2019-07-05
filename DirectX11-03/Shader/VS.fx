@@ -43,14 +43,14 @@ struct VS_INPUT
 {
 	float4 position : POSITION;
 	//float4 color : COLOR;
-	float2 uv : TEXCORD0;
+	float2 uv : TEXCOORD0;
 };
 
 struct VS_OUTPUT
 {
 	float4 position : SV_POSITION;
 	//float4 color : COLOR;
-	float2 uv : TEXCORD0;
+	float2 uv : TEXCOORD0;
 
 };
 VS_OUTPUT main(VS_INPUT input)
