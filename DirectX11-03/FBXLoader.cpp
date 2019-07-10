@@ -83,7 +83,7 @@ namespace FBXLoader
 				for (int j = 0; j < VertexCount; ++j)
 				{
 					//정점 순번 확인
-					int VerTexIndex = fbxMesh->GetPolygonVertex(j, i);
+					int VerTexIndex = fbxMesh->GetPolygonVertex(i, j);
 
 					//정점 정보 읽어 오기
 					Vertex vertex;

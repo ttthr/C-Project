@@ -89,7 +89,7 @@ void Engine::Render()
 bool Engine::InitializeScene()
 {
 	//버텍스 셰이더 생성
-	pVertexShader = new VertexShader(TEXT("Shader//VS.fx"));
+	pVertexShader = new VertexShader(TEXT("Shader//DiffuseVS.fx"));
 	//버텍스 셰이더 컴파일
 	if (pVertexShader->CompileShader(m_pd3dDevice) == false)
 	{
@@ -101,7 +101,7 @@ bool Engine::InitializeScene()
 		return false;
 	}
 	//픽셀 셰이더 생성
-	pPixelShader = new PixelShader(TEXT("Shader//PS.fx"));
+	pPixelShader = new PixelShader(TEXT("Shader//DiffusePS.fx"));
 	//픽셀 셰이더 컴파일
 	if (pPixelShader->CompileShader(m_pd3dDevice) == false)
 	{
@@ -114,7 +114,7 @@ bool Engine::InitializeScene()
 	}	
 	//텍스쳐 로드
 
-	if (pPixelShader->RoadTexture(m_pd3dDevice, TEXT("Resource/Textures/T_Chr_FPS_D.png")) == false)
+	if (pPixelShader->RoadTexture(m_pd3dDevice, TEXT("Resource/Textures/T_Chr_FPS_N.png")) == false)
 	{
 		return false;
 	}
