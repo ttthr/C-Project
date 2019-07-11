@@ -207,7 +207,7 @@ bool Engine::InitializeScene()
 	// 텍스처 관련 처리.
 	// 텍스처 추가.
 	material->AddTexture(TEXT("Resources/Textures/T_Chr_FPS_D.png"));
-	material2->AddTexture(TEXT("Resources/Textures/T_Chr_FPS_D.png"));
+	material2->AddTexture(TEXT("Resources/Textures/Char_M_Cardboard_D.png"));
 
 	// 텍스처 로드.
 	if (material->LoadTexture(device) == false)
@@ -227,7 +227,7 @@ bool Engine::InitializeScene()
 	mesh->SetPosition(-70.0f, -90.0f, 0.0f);
 	mesh->SetRotation(-90.0f, 180.0f, 0.0f);
 
-	mesh2 = new Mesh("Resources/Models/HeroTPP.FBX");
+	mesh2 = new Mesh("Resources/Models/SK_CharM_Cardboard.FBX");
 	mesh2->SetPosition(70.0f, -90.0f, 0.0f);
 	mesh2->SetRotation(-90.0f, 180.0f, 0.0f);
 
@@ -237,7 +237,7 @@ bool Engine::InitializeScene()
 	//	return false;
 	if (mesh->InitializeBuffers(device, material) == false)
 		return false;
-	if (mesh2->InitializeBuffers(device, material) == false)
+	if (mesh2->InitializeBuffers(device, material2) == false)
 		return false;
 
 	return true;
@@ -250,7 +250,7 @@ bool Engine::InitializeTransformation()
 	float aspectRatio = static_cast<float>(window->GetScreenWidth()) / static_cast<float>(window->GetScreenHeight());
 
 	// 카메라 객체 생성.
-	camera = new Camera(fovY, aspectRatio, 1.0f, 10000.0f);
+	camera = new Camera(fovY, aspectRatio, 1.0f, 1000.0f);
 
 	// 버퍼에 담을 구조체 변수 설정.
 	PerSceneBuffer matrixData;

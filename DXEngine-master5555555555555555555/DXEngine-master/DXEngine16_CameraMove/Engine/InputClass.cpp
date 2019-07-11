@@ -23,7 +23,7 @@ bool InputClass::InitializeInput(HWND hwnd)
 XMFLOAT2 InputClass::GetMouseDragState()
 {
 	Mouse::State state = mouse->GetState();
-	return XMFLOAT2(state.x, state.y);
+	return XMFLOAT2(static_cast<float>(state.x), static_cast<float>(state.y));
 }
 
 Mouse::State InputClass::GetMouseState()
