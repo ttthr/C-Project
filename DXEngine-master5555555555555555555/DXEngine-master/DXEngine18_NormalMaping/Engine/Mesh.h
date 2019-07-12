@@ -5,6 +5,8 @@
 #include "Material.h"
 #include <vector>
 
+class InputClass;
+
 using namespace DirectX;
 
 class Mesh : public AlignedAllocation<16>
@@ -49,6 +51,7 @@ public:
 	XMMATRIX GetTranslationMatrix();
 	XMMATRIX GetRotationMatrix();
 	XMMATRIX GetScaleMatrix();
+	void CreateRasterizerState(ID3D11Device* pd3dDevice);
 
 	LPCSTR GetFBXName() const { return fileName; }
 	std::vector<Vertex>* GetVertexArray() { return &vertices; }
@@ -58,12 +61,13 @@ public:
 	int GetIndexCount() const { return indices.size(); }
 
 	D3D11_INPUT_ELEMENT_DESC* GetInputLayoutDesc() { return inputLayoutDesc; }
-
+	ID3D11RasterizerState* GetRasterizerState() { return RasterizerState; }
 	// Setter.
 	void SetPosition(float x, float y, float z) { position = XMFLOAT3(x, y, z); }
 	void SetRotation(float x, float y, float z) { rotation = XMFLOAT3(x, y, z); }
 	void SetScale(float x, float y, float z) { scale = XMFLOAT3(x, y, z); }
-
+	void SetInput(InputClass* input);
+	bool IsOn = false;
 private:
 
 	bool InitializeBuffers(ID3D11Device* device, ID3DBlob* vertexShaderBuffer);
@@ -96,4 +100,8 @@ private:
 	XMFLOAT3 scale = XMFLOAT3(1.0f, 1.0f, 1.0f);			// 스케일 정보.
 
 	PerObjectBuffer matrixData;
+	ID3D11RasterizerState* RasterizerState;
+	
+	InputClass* input;
+	
 };

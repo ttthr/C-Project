@@ -65,4 +65,5 @@ private:
 
 	//타이머 클래스
 	GameTimer* gameTimer;
+
 };

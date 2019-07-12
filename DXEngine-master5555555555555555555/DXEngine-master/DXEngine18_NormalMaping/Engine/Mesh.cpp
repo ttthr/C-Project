@@ -117,8 +117,15 @@ bool Mesh::InitializeBuffers(ID3D11Device * device, ID3DBlob * vertexShaderBuffe
 	{
 		return false;
 	}
-
+	
+	CreateRasterizerState(device);
+	
 	return true;
+}
+
+void Mesh::SetInput(InputClass * input)
+{
+	this->input = input;
 }
 
 bool Mesh::InitializeBuffers(ID3D11Device * device, Material * material)
@@ -145,6 +152,18 @@ void Mesh::RenderBuffers(ID3D11DeviceContext * deviceContext)
 
 	// 위상 설정.
 	deviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+
+	//레스터라이져
+	//if (this->input->IsKeyDown(Keyboard::Keys::R))
+	//{
+	//	deviceContext->RSSetState(RasterizerState);
+	//	IsOn = true;
+	//}
+	//else if (this->input->IsKeyDown(Keyboard::Keys::T) && IsOn == true)
+	//{
+	//	deviceContext->RSSetState(RasterizerState);
+	//	IsOn = false;
+	//}
 
 	// 그리기.
 	//deviceContext->Draw(nVertices, 0);
@@ -194,3 +213,14 @@ XMMATRIX Mesh::GetScaleMatrix()
 {
 	return XMMatrixScaling(scale.x, scale.y, scale.z);
 }
+
+ void Mesh::CreateRasterizerState(ID3D11Device *pd3dDevice)
+ {
+	 // Default 
+	 D3D11_RASTERIZER_DESC d3dRasterizerDesc;
+	 ZeroMemory(&d3dRasterizerDesc, sizeof(D3D11_RASTERIZER_DESC));
+	 d3dRasterizerDesc.CullMode = D3D11_CULL_BACK;
+	 d3dRasterizerDesc.FillMode = D3D11_FILL_WIREFRAME;
+	 pd3dDevice->CreateRasterizerState(&d3dRasterizerDesc, &RasterizerState);
+}
+

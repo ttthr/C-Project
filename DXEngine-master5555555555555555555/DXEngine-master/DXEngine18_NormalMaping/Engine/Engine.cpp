@@ -117,6 +117,16 @@ void Engine::Render(float deltaTime)
 	material->BindTextures(deviceContext);
 	material->BindSamplerState(deviceContext);
 
+	if (input->IsKeyDown(Keyboard::Keys::R))
+	{
+		deviceContext->RSSetState(mesh->GetRasterizerState());
+		mesh->IsOn = true;
+	}
+	else if (input->IsKeyDown(Keyboard::Keys::T) && mesh->IsOn == true)
+	{
+		deviceContext->RSSetState(NULL);
+		mesh->IsOn = false;
+	}
 	// 메시 버퍼 그리기.
 	mesh->RenderBuffers(deviceContext);
 	// ------- 1번 메시 그리기 ------- //
@@ -192,13 +202,14 @@ void Engine::ProcessInput(float deltaTime)
 		camera->Yaw(state.x * camera->GetMouseSpeed() * deltaTime);
 		camera->Pitch(state.y * camera->GetMouseSpeed()  * deltaTime);
 	}
+
 }
 
 bool Engine::InitializeScene()
 {
 	// 머티리얼 객체 생성.
-	material = new Material(TEXT("Shader/WrapDiffuse"));
-	material2 = new Material(TEXT("Shader/BlinnPhong"));
+	material = new Material(TEXT("Shader/NormalMapping"));
+	material2 = new Material(TEXT("Shader/NormalMapping2"));
 
 	// 머티리얼 컴파일.
 	if (material->CompileShaders(device) == false)
@@ -214,10 +225,10 @@ bool Engine::InitializeScene()
 
 	// 텍스처 관련 처리.
 	// 텍스처 추가.
-	material->AddTexture(TEXT("Resources/Textures/Warp.png"));
 	material->AddTexture(TEXT("Resources/Textures/T_Chr_FPS_D.png"));
+	material->AddTexture(TEXT("Resources/Textures/T_Chr_FPS_N.png"));
 	material2->AddTexture(TEXT("Resources/Textures/T_Chr_FPS_D.png"));
-
+	material2->AddTexture(TEXT("Resources/Textures/T_Chr_FPS_N.png"));
 	// 텍스처 로드.
 	if (material->LoadTextures(device) == false)
 		return false;
