@@ -20,7 +20,7 @@ AppWindow::AppWindow(HINSTANCE hinstance)
 	this->hinstance = hinstance;
 	screenWidth = 1600;
 	screenHeight = 900;
-	applicationName = TEXT("Engine21 - CubeMap");
+	applicationName = TEXT("Engine21 - CubeMap & RimLighting & OranNayer");
 	windowStyle = WS_OVERLAPPEDWINDOW;
 	app = this;
 }

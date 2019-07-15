@@ -193,6 +193,8 @@ bool Engine::InitializeScene()
 	LPCTSTR NormalMapping1 = TEXT("Shader/NormalMapping");
 	LPCTSTR NormalMapping2 = TEXT("Shader/NormalMapping2");
 	LPCTSTR CubeMapping = TEXT("Shader/Cube");
+	LPCTSTR RimMapping = TEXT("Shader/LimLighting");
+	LPCTSTR OranNayerMapping = TEXT("Shader/OranNayer");
 
 	// 메쉬 생성. 
 	// 벡터로 생성
@@ -230,8 +232,8 @@ bool Engine::InitializeScene()
 
 	meshes.push_back(mesh4);
 
-	Mesh* mesh5 = new Mesh(fbxBear, NormalMapping2, D3D11_FILL_WIREFRAME, D3D11_CULL_BACK);
-	mesh5->SetPosition(-330.0f, -90.0f, 0.0f);
+	Mesh* mesh5 = new Mesh(fbxBear, RimMapping, D3D11_FILL_WIREFRAME, D3D11_CULL_BACK);
+	mesh5->SetPosition(-360.0f, -90.0f, 0.0f);
 	mesh5->SetRotation(-90.0f, 180.0f, 0.0f);
 	mesh5->AddTexture(DiffuseBear);
 	mesh5->AddTexture(NormalBear);
@@ -245,6 +247,15 @@ bool Engine::InitializeScene()
 	mesh6->AddTexture(CubeTexture);
 
 	meshes.push_back(mesh6);
+
+
+	Mesh* mesh7 = new Mesh(fbxBear, OranNayerMapping);
+	mesh7->SetPosition(-600.0f, -90.0f, 0.0f);
+	mesh7->SetRotation(-90.0f, 180.0f, 0.0f);
+
+	mesh7->AddTexture(DiffuseBear);
+
+	meshes.push_back(mesh7);
 
 	//메쉬 초기화
 	if (InitializeMeshs() == false)
