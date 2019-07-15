@@ -127,7 +127,7 @@ bool Mesh::InitializeBuffers(ID3D11Device * device, ID3DBlob * vertexShaderBuffe
 		return false;
 	}
 	
-	CreateRasterizerState1(device);
+	//CreateRasterizerState1(device);
 	
 	return true;
 }

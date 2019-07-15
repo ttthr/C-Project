@@ -84,19 +84,20 @@ void Engine::Render(float deltaTime)
 		(*iter)->BindShaders(deviceContext);
 		(*iter)->BindTextures(deviceContext);
 		(*iter)->BindSamplerState(deviceContext);
-		//(*iter)->BindRasterizerState(deviceContext);
+		(*iter)->BindRasterizerState(deviceContext);
 
-		if (input->IsKeyDown(Keyboard::Keys::R))
+	    /*if (input->IsKeyDown(Keyboard::Keys::R))
 		{
-			deviceContext->RSSetState((*iter)->GetRasterizerState());
 			(*iter)->IsOn = true;
 		}
 		else if (input->IsKeyDown(Keyboard::Keys::T) && (*iter)->IsOn == true)
 		{
-			deviceContext->RSSetState(NULL);
+	
+			(*iter)->BindRasterizerState(NULL);
 			(*iter)->IsOn = false;
-		}
+		}*/
 		// 메시 버퍼 그리기.
+
 		(*iter)->RenderBuffers(deviceContext);
 
 	}
@@ -229,7 +230,7 @@ bool Engine::InitializeScene()
 
 	meshes.push_back(mesh4);
 
-	Mesh* mesh5 = new Mesh(fbxBear, NormalMapping2);
+	Mesh* mesh5 = new Mesh(fbxBear, NormalMapping2, D3D11_FILL_WIREFRAME, D3D11_CULL_BACK);
 	mesh5->SetPosition(-330.0f, -90.0f, 0.0f);
 	mesh5->SetRotation(-90.0f, 180.0f, 0.0f);
 	mesh5->AddTexture(DiffuseBear);
@@ -237,8 +238,8 @@ bool Engine::InitializeScene()
 
 	meshes.push_back(mesh5);
 
-	Mesh* mesh6 = new Mesh(fbxCube, CubeMapping);
-	mesh6->SetScale(1000.f, 500.f, 1000.f);
+	Mesh* mesh6 = new Mesh(fbxCube, CubeMapping ,D3D11_FILL_SOLID, D3D11_CULL_NONE);
+	mesh6->SetScale(10000.f, 10000.f, 10000.f);
 	mesh6->SetPosition(0.0f, 0.0f, 0.0f);
 	
 	mesh6->AddTexture(CubeTexture);
@@ -260,7 +261,7 @@ bool Engine::InitializeTransformation()
 	float aspectRatio = static_cast<float>(window->GetScreenWidth()) / static_cast<float>(window->GetScreenHeight());
 
 	// 카메라 객체 생성.
-	camera = new Camera(fovY, aspectRatio, 1.0f, 1000.0f);
+	camera = new Camera(fovY, aspectRatio, 1.0f, 100000.0f);
 
 	// 버퍼에 담을 구조체 변수 설정.
 	PerSceneBuffer matrixData;
@@ -328,8 +329,8 @@ bool Engine::InitializeMeshs()
 		if ((*iter)->InitializeBuffers(device) == false)
 			return false;
 		//레스터 라이저 스테이트 생성
-		//if ((*iter)->CreateRasterizerState(device) == false)
-			//return false;
+		if ((*iter)->CreateRasterizerState(device) == false)
+			return false;
 	}
 
 	return true;
