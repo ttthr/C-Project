@@ -76,7 +76,7 @@ void PixelShader::Release()
 	Shader::Release();
 	Memory::SafeRelease(pixelShader);
 	Memory::SafeRelease(samplerState);
-	for (int i = 0; i < textures.size(); ++i)
+	for (unsigned i = 0; i < textures.size(); ++i)
 	{
 		textures[i].Release();
 	}
@@ -125,7 +125,7 @@ bool PixelShader::LoadTextures(ID3D11Device * device)
 	// 텍스처 로드.
 	//texture.fileName = fileName;
 
-	for (int i = 0; i < textures.size(); ++i)
+	for (unsigned int  i = 0; i < textures.size(); ++i)
 	{
 		if (textures[i].LoadTextureFromFile(device) == false)
 		{
@@ -138,7 +138,7 @@ bool PixelShader::LoadTextures(ID3D11Device * device)
 
 void PixelShader::BindTextures(ID3D11DeviceContext * deviceContext)
 {
-	for (int i = 0; i < textures.size(); ++i)
+	for (unsigned int i = 0; i < textures.size(); ++i)
 	{
 		deviceContext->PSSetShaderResources(i, 1, &textures[i].textureResourceView);
 	}
