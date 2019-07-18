@@ -97,6 +97,25 @@ void Engine::Render(float deltaTime)
 	rtRenderer->UpdateBuffers(deviceContext, 100, 100);
 	rtRenderer->RenderBuffers(deviceContext);
 
+	//
+
+
+	//UpdatePerspectiveCamera2();
+	//RenderToTextureRender();
+	//BeginScene(color);
+	
+	////다시 그리기 ( 백버퍼)
+	//RenderScene();
+
+	//UpdateOrthographicCamera2();
+
+	//rtMaterial2->BindShaders(deviceContext);
+	//rtMaterial2->RTBindTexture2(deviceContext, renderToTexture2->GetRenderTargetShaderResoureView());
+	//rtMaterial2->BindSamplerState(deviceContext);
+	rtRenderer2->UpdateBuffers(deviceContext, 900, 100);
+	rtRenderer2->RenderBuffers(deviceContext);
+
+
 	//// 렌더 타겟을 설정한 색상으로 칠하기.
 	//deviceContext->ClearRenderTargetView(renderTargetView, color);
 
@@ -303,6 +322,24 @@ bool Engine::InitializeScene()
 	{
 		return false;
 	}
+
+	//머터리얼 초기화
+	rtMaterial2 = new Material(TEXT("Shader/"));
+	//컴파일
+	if (rtMaterial2->CompileShaders(device) == false)
+	{
+		return false;
+	}
+	//셰이더 객체 생성
+	if (rtMaterial2->CreateShaders(device) == false)
+	{
+		return false;
+	}
+	//샘플러 스테이트 설정
+	if (rtMaterial2->CreateSamplerState(device) == false)
+	{
+		return false;
+	}
 	
 	
 	return true;
@@ -361,6 +398,20 @@ bool Engine::InitializeTransformation()
 	{
 		return false;
 	}
+
+	//RenderToTexture2 초기화
+	renderToTexture2 = new RenderToTexture();
+	if (renderToTexture2->Initialize(device, camera, window->GetScreenWidth(), window->GetScreenHeight()) == false)
+	{
+		return false;
+	}
+	// RTRenderer2 초기화
+	rtRenderer2 = new RTRenderer();
+	if (rtRenderer2->Initiailze(device, rtMaterial->GetVertexShader()->GetShaderBuffer(), window->GetScreenWidth(), window->GetScreenHeight(), 480, 270) == false)
+	{
+		return false;
+	}
+
 
 	return true;
 }
@@ -466,6 +517,37 @@ void Engine::UpdateOrthographicCamera()
 	PerSceneBuffer matrixData;
 	matrixData.viewProjection = XMMatrixTranspose(
 		camera->GetViewMatrix() * renderToTexture->GetProjectionMatrix()
+	);
+	matrixData.worldLightPosition = XMFLOAT3(5000.0f, 5000.0f, -5000.0f);
+	matrixData.worldCameraPosition = camera->GetPosition();
+
+	deviceContext->UpdateSubresource(constantBuffer, 0, NULL, &matrixData, 0, 0);
+
+
+}
+
+void Engine::UpdatePerspectiveCamera2()
+{
+	camera->UpdateCamera();
+
+	PerSceneBuffer matrixData;
+	matrixData.viewProjection = XMMatrixTranspose(
+		camera->GetViewMatrix() * camera->GetProjectionMatrix()
+	);
+	matrixData.worldLightPosition = XMFLOAT3(5000.0f, 5000.0f, -5000.0f);
+	matrixData.worldCameraPosition = camera->GetPosition();
+
+	deviceContext->UpdateSubresource(constantBuffer, 0, NULL, &matrixData, 0, 0);
+}
+
+void Engine::UpdateOrthographicCamera2()
+{
+	camera->UpdateCamera();
+
+	//바뀐점
+	PerSceneBuffer matrixData;
+	matrixData.viewProjection = XMMatrixTranspose(
+		camera->GetViewMatrix() * renderToTexture2->GetProjectionMatrix()
 	);
 	matrixData.worldLightPosition = XMFLOAT3(5000.0f, 5000.0f, -5000.0f);
 	matrixData.worldCameraPosition = camera->GetPosition();

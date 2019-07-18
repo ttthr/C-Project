@@ -71,6 +71,7 @@ void Material::RTBindTexture(ID3D11DeviceContext * deviceContext, ID3D11ShaderRe
 
 }
 
+
 bool Material::CreateSamplerState(ID3D11Device * device)
 {
 	if (pixelShader->CreateSamplerState(device) == false)

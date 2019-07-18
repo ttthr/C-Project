@@ -149,3 +149,4 @@ void PixelShader::RTBindTexture(ID3D11DeviceContext * deviceContext, ID3D11Shade
 	deviceContext->PSSetShaderResources(0, 1, &shaderResourceView);
 
 }
+

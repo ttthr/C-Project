@@ -65,6 +65,10 @@ private:
 	void UpdatePerspectiveCamera();
 	void UpdateOrthographicCamera();
 
+	//투영행렬 업데이트 함수
+	void UpdatePerspectiveCamera2();
+	void UpdateOrthographicCamera2();
+
 
 private:
 	// 뷰, 투영행렬 버퍼.
@@ -83,5 +87,11 @@ private:
 	RTRenderer* rtRenderer;
 	//머티리얼
 	Material* rtMaterial;
+
+	RenderToTexture* renderToTexture2;
+	//RT렌더
+	RTRenderer* rtRenderer2;
+	//머티리얼
+	Material* rtMaterial2;
 
 };

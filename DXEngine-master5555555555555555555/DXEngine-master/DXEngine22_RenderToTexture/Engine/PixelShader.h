@@ -31,6 +31,7 @@ public:
 	void BindTextures(ID3D11DeviceContext* deviceContext);
 	void RTBindTexture(ID3D11DeviceContext* deviceContext, ID3D11ShaderResourceView* shaderResourceView);
 
+
 	// Getter.
 	ID3D11PixelShader* GetPixelShader() const { return pixelShader; }
 

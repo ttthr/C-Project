@@ -19,7 +19,6 @@ public:
 	void BindTextures(ID3D11DeviceContext* deviceContext);
 	//2019.07.18
 	void RTBindTexture(ID3D11DeviceContext* deviceContext, ID3D11ShaderResourceView* shaderResourceView);
-
 	bool CreateSamplerState(ID3D11Device* device);
 	void BindSamplerState(ID3D11DeviceContext* deviceContext);
 
