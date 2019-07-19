@@ -14,12 +14,12 @@ Engine::~Engine()
 	Memory::SafeDelete(camera);
 	Memory::SafeRelease(constantBuffer);
 	Memory::SafeDelete(gameTimer);
-	/*renderToTexture->Release();
-	Memory::SafeDelete(renderToTexture);
-	rtRenderer->Release();
-	Memory::SafeDelete(rtRenderer);
-	rtMaterial->Release();
-	Memory::SafeDelete(rtMaterial);*/
+	//renderToTexture->Release();
+	//Memory::SafeDelete(renderToTexture);
+	//rtRenderer->Release();
+	//Memory::SafeDelete(rtRenderer);
+	//rtMaterial->Release();
+	//Memory::SafeDelete(rtMaterial);
 
 }
 
@@ -516,7 +516,7 @@ void Engine::UpdateOrthographicCamera()
 	//¹Ù²ïÁ¡
 	PerSceneBuffer matrixData;
 	matrixData.viewProjection = XMMatrixTranspose(
-		camera->GetViewMatrix() * renderToTexture->GetProjectionMatrix()
+		renderToTexture->GetViewMatrix() * renderToTexture->GetProjectionMatrix()
 	);
 	matrixData.worldLightPosition = XMFLOAT3(5000.0f, 5000.0f, -5000.0f);
 	matrixData.worldCameraPosition = camera->GetPosition();

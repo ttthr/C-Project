@@ -6,7 +6,8 @@
 using namespace std;
 using namespace DirectX;
 
-class RTRenderer
+class RTRenderer :
+	public AlignedAllocation<16>
 {
 public:
 	RTRenderer();

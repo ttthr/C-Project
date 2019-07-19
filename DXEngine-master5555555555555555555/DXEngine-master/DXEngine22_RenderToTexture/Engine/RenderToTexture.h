@@ -22,6 +22,7 @@ public:
 	ID3D11RenderTargetView* GetRenderTagetView() const { return RenderTagetView; }
 	ID3D11ShaderResourceView* GetRenderTargetShaderResoureView() const { return RenderTargetShaderResoureView; }
 	XMMATRIX GetProjectionMatrix() const { return projection; }
+	XMMATRIX GetViewMatrix() const { return view; }
 public:
 	bool Initialize(ID3D11Device* pd3dDevice , Camera* pCamera , int width , int height);
 	void SetRenderTarget(ID3D11DeviceContext* pd3dDeviceContext, ID3D11DepthStencilView* pDepthStencilView);
