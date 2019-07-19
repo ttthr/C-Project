@@ -120,3 +120,7 @@ UObject -> AActor -> APawn
   - SceneCaptureComponent2D 추가
   - Scene Capture 에서 Texture Target 선택 -> T_Scene 을 넣어준다.
   - 머터리얼을 어딘가에 추가하면 나온다.
+2019.7.19 ( DX를 마치면서 ) 
+* 알레고리드믹 물리 기반 렌더링
+* ShaderX 책
+* Unreal Source 코드

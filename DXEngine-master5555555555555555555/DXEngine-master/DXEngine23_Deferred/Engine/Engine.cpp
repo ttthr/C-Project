@@ -195,7 +195,7 @@ bool Engine::InitializeScene()
 	mesh1->SetPosition(-70.0f, -90.0f, 0.0f);
 	mesh1->SetRotation(-90.0f, 180.0f, 0.0f);
 	mesh1->AddTexture(DiffuseTPP);
-	//mesh1->AddTexture(NormalTPP);
+	mesh1->AddTexture(NormalTPP);
 
 	meshes.push_back(mesh1);
 
@@ -203,7 +203,7 @@ bool Engine::InitializeScene()
 	mesh2->SetPosition(70.0f, -90.0f, 0.0f);
 	mesh2->SetRotation(-90.0f, 180.0f, 0.0f);
 	mesh2->AddTexture(DiffuseTPP);
-	//mesh2->AddTexture(NormalTPP);
+	mesh2->AddTexture(NormalTPP);
 
 	meshes.push_back(mesh2);
 
@@ -211,7 +211,7 @@ bool Engine::InitializeScene()
 	mesh3->SetPosition(200.0f, -90.0f, 0.0f);
 	mesh3->SetRotation(-90.0f, 180.0f, 0.0f);
 	mesh3->AddTexture(DiffuseWarrior);
-	//mesh3->AddTexture(NormalWarrior);
+	mesh3->AddTexture(NormalWarrior);
 
 	meshes.push_back(mesh3);
 
@@ -219,7 +219,7 @@ bool Engine::InitializeScene()
 	mesh4->SetPosition(-200.0f, -90.0f, 0.0f);
 	mesh4->SetRotation(-90.0f, 180.0f, 0.0f);
 	mesh4->AddTexture(DiffuseBarbarous);
-	//mesh4->AddTexture(NormalBarbarous);
+	mesh4->AddTexture(NormalBarbarous);
 
 	meshes.push_back(mesh4);
 
@@ -231,7 +231,7 @@ bool Engine::InitializeScene()
 
 	meshes.push_back(mesh5);
 
-	//Mesh* mesh6 = new Mesh(fbxCube, Deffered,D3D11_FILL_SOLID, D3D11_CULL_NONE);
+	//Mesh* mesh6 = new Mesh(fbxCube, CubeMapping,D3D11_FILL_SOLID, D3D11_CULL_NONE);
 	//mesh6->SetScale(10000.f, 10000.f, 10000.f);
 	//mesh6->SetPosition(0.0f, 0.0f, 0.0f);
 	//
@@ -375,7 +375,7 @@ bool Engine::InitializeDeferredBuffers()
 	//디퍼드 렌더러 초기화
 
 	deferredRenderer = new DeferredRenderer();
-	if (deferredRenderer->Initialize(device, deferredMatrial->GetVertexShader()->GetShaderBuffer(), camera, window->GetScreenWidth(), window->GetScreenHeight()) == false)
+	if (deferredRenderer->Initialize(device, deferredMatrial->GetVertexShader()->GetShaderBuffer(), camera, window->GetScreenWidth() , window->GetScreenHeight()) == false)
 	{
 		return false;
 	}
