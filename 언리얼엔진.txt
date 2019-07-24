@@ -217,7 +217,7 @@ UObject -> AActor -> APawn
   - Anim 클래스에 우리가 만든거 넣기
   - 이벤트 그래프에서 Tick이벤트 열기
   - GetVelocity 얻어 오기 
-  - vectorlenghtxy 얻어와서 이어주기
+  - vectorlenghty 얻어와서 이어주기
   - mesh 컴포넌트 긁어오기 
   - mesh에 Get Anim Instance 이어주기 ( 실행중에 사용할 실제 물체 이름 )
   - to animbp -> character anim bp로 형변환
@@ -243,5 +243,5 @@ UObject -> AActor -> APawn
   - 무기위치 우클릭 ( 프리뷰에셋으로 칼 잡은거 볼수 있다.)
   - AttachTo컴포넌트에 소켓네임에 만든 소켓이름 넣어주기
   - snap to target
-  - SetActorTransform 추가 ( 구조체 핀분할 한뒤 이어주기)
+  ///- SetActorTransform 추가 ( 구조체 핀분할 한뒤 이어주기) ( 이거하면 손에 안붙음? )
   
